@@ -1,0 +1,138 @@
+"""
+Q1.6 Q1 回归模型（不含 γ_q，按既定口径）
+   y_{i,d} = α_i + β_i·t + a·sin + b·cos + η_m·H_m7 + η_l·H_l7 + ρ_m·A_m + ρ_l·A_l + ε
+  - 用 filter fixed effects (dummy)
+  - 允许 β_i 按台不同（交互项 i×t）
+  - A_m / A_l 在无历史维护时填 0（作为参考水平），同时加 has_m / has_l 指示变量
+  - 双版本：普通 OLS 与 WLS (权重=n_{i,d})
+输出：
+  tables/reg_summary_ols.csv
+  tables/reg_summary_wls.csv
+"""
+import pandas as pd
+import numpy as np
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+ROOT = PROJECT_ROOT / "Q1输出"
+df = pd.read_csv(ROOT / "data/daily_with_vars.csv", parse_dates=["d"])
+
+# 准备变量
+df = df.dropna(subset=["y"]).copy()
+df["has_m"] = df["A_m"].notna().astype(int)
+df["has_l"] = df["A_l"].notna().astype(int)
+df["A_m_f"] = df["A_m"].fillna(0)
+df["A_l_f"] = df["A_l"].fillna(0)
+
+# 构造设计矩阵 X
+# 列： intercept (global), 9个过滤器dummy (A2..A10, A1为基准), 10个 β_i·t 交互,
+#      sin1, cos1, H_m7, H_l7, A_m_f, A_l_f, has_m, has_l
+filters = sorted(df["i"].unique())
+ref = filters[0]
+
+def build_X(df, add_filter_specific_trend=True):
+    parts = [np.ones(len(df))]
+    names = ["const"]
+    # 过滤器 FE
+    for i in filters[1:]:
+        parts.append((df["i"] == i).astype(float).values)
+        names.append(f"I(i={i})")
+    # 趋势 β_i · t 交互（每台一个）
+    if add_filter_specific_trend:
+        for i in filters:
+            parts.append(((df["i"] == i).astype(float) * df["t"]).values)
+            names.append(f"t_i{i}")
+    else:
+        parts.append(df["t"].values); names.append("t")
+    # 季节
+    parts.append(df["sin1"].values); names.append("sin1")
+    parts.append(df["cos1"].values); names.append("cos1")
+    # 维护
+    for col in ["H_m7", "H_l7", "A_m_f", "A_l_f", "has_m", "has_l"]:
+        parts.append(df[col].values.astype(float)); names.append(col)
+    X = np.column_stack(parts)
+    return X, names
+
+def ols(X, y, w=None):
+    """最小二乘 + HC0 稳健标准误（可加权）。"""
+    if w is None:
+        Wy = y
+        WX = X
+    else:
+        sw = np.sqrt(w)
+        Wy = y * sw
+        WX = X * sw[:, None]
+    beta, *_ = np.linalg.lstsq(WX, Wy, rcond=None)
+    # 残差
+    resid = y - X @ beta
+    n, k = X.shape
+    # 普通方差
+    if w is None:
+        sigma2 = (resid**2).sum() / (n - k)
+        XtX_inv = np.linalg.inv(X.T @ X)
+        var_beta = sigma2 * XtX_inv
+    else:
+        # WLS: var = (X'WX)^-1 X'W diag(r^2) W X (X'WX)^-1  (HC0 variant)
+        W = np.diag(w)
+        XtWX_inv = np.linalg.inv(X.T @ W @ X)
+        meat = X.T @ W @ np.diag(resid**2) @ W @ X
+        var_beta = XtWX_inv @ meat @ XtWX_inv
+    se = np.sqrt(np.diag(var_beta))
+    tstat = beta / np.where(se == 0, np.nan, se)
+    # R^2
+    ss_res = (resid**2).sum()
+    ss_tot = ((y - y.mean())**2).sum()
+    r2 = 1 - ss_res / ss_tot
+    return beta, se, tstat, r2, resid
+
+X, names = build_X(df, add_filter_specific_trend=True)
+y = df["y"].values
+w = df["n"].values.astype(float)
+
+b_ols, se_ols, t_ols, r2_ols, res_ols = ols(X, y, w=None)
+b_wls, se_wls, t_wls, r2_wls, res_wls = ols(X, y, w=w)
+print(f"OLS  R² = {r2_ols:.4f},  n = {len(y)},  k = {X.shape[1]}")
+print(f"WLS  R² = {r2_wls:.4f}")
+
+tab = pd.DataFrame({
+    "var": names,
+    "beta_OLS": b_ols,
+    "SE_OLS": se_ols,
+    "t_OLS": t_ols,
+    "beta_WLS": b_wls,
+    "SE_WLS": se_wls,
+    "t_WLS": t_wls,
+}).round(4)
+tab.to_csv(ROOT / "tables/reg_summary_full.csv", index=False)
+
+# 关键系数摘要
+key = tab[tab["var"].isin(["sin1", "cos1", "H_m7", "H_l7", "A_m_f", "A_l_f"])].copy()
+key["ampl(sin+cos)"] = np.where(key["var"] == "sin1",
+                                 np.sqrt(b_ols[names.index("sin1")]**2 +
+                                         b_ols[names.index("cos1")]**2), np.nan)
+print("\nKey coefficients:")
+print(tab[tab["var"].isin(["const","sin1","cos1","H_m7","H_l7","A_m_f","A_l_f","has_m","has_l"])].to_string(index=False))
+
+# 各台趋势斜率 β_i (天/天) 与 年化
+trend_rows = []
+for i in filters:
+    j = names.index(f"t_i{i}")
+    trend_rows.append(dict(i=i, beta_per_day=b_ols[j], SE=se_ols[j],
+                           beta_per_year=b_ols[j]*365.25, t=t_ols[j]))
+trend = pd.DataFrame(trend_rows).round(4)
+print("\nFilter-specific trend β_i (OLS):")
+print(trend.to_string(index=False))
+trend.to_csv(ROOT / "tables/trend_per_filter.csv", index=False)
+
+# 季节性幅度
+sin_idx = names.index("sin1"); cos_idx = names.index("cos1")
+amp = np.sqrt(b_ols[sin_idx]**2 + b_ols[cos_idx]**2)
+phase = np.degrees(np.arctan2(b_ols[sin_idx], b_ols[cos_idx]))
+print(f"\nSeasonal amplitude = {amp:.3f},  phase = {phase:.1f}°  "
+      f"(peak ~ DOY {(90-phase)%360/360*365:.0f})")
+
+# 保存残差
+df["resid_ols"] = res_ols
+df["resid_wls"] = res_wls
+df[["i","d","y","n","resid_ols","resid_wls"]].to_csv(ROOT / "data/regression_residuals.csv", index=False)
+print(f"\nSaved: tables/reg_summary_full.csv,  tables/trend_per_filter.csv,  data/regression_residuals.csv")

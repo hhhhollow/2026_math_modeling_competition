@@ -1,0 +1,8 @@
+jupyterlab
+notebook
+ipykernel
+pandas
+numpy
+matplotlib
+openpyxl
+pyarrow
