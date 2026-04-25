@@ -48,8 +48,8 @@ for ax, i in zip(axes.ravel(), range(1, 11)):
             ax.text(c, r, f"{v:.0f}", ha="center", va="center",
                     fontsize=6, color="white" if v > 150 else "black")
 fig.suptitle("Q3  EAC heatmap (unit: 10k CNY/yr)   * = optimal",
-             fontsize=12, y=0.995)
-fig.tight_layout()
+             fontsize=13, y=0.998)
+fig.tight_layout(rect=[0, 0, 1, 0.98])
 fig.savefig(ROOT / "Q3输出/figures/fig_q3_eac_heatmap.png", dpi=110)
 plt.close(fig)
 print("Saved fig_q3_eac_heatmap.png")

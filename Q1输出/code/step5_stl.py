@@ -56,8 +56,8 @@ for row, i in enumerate(range(1, 11)):
         for j, t in enumerate(["observed y", "trend (91d rolling median)",
                                 "seasonal (DOY mean)", "residual"]):
             axes[row, j].set_title(t, fontsize=10)
-fig.suptitle("Q1.5  STL-lite decomposition per filter", fontsize=12)
-fig.tight_layout()
+fig.suptitle("Q1.5  STL-lite decomposition per filter", fontsize=14, y=0.995)
+fig.tight_layout(rect=[0, 0, 1, 0.975])
 fig.savefig(ROOT / "figures/fig2_stl_decomposition.png", dpi=120)
 plt.close(fig)
 print(f"Saved: {ROOT/'figures/fig2_stl_decomposition.png'}")
