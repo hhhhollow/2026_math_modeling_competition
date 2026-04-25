@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-ROOT = Path("/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition")
+ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
 mnt = pd.read_csv(ROOT / "Q1输出/data/maintenance_events.csv", parse_dates=["d"])
 print(f"Loaded {len(mnt)} maintenance events")
 
@@ -50,7 +50,7 @@ rule = pd.DataFrame(rows)
 print("\nPer-filter empirical maintenance cadence:")
 print(rule.to_string(index=False))
 
-# 对只有 1 次大维护的 A5、A7、A9，用其余台的中位 T_L 填充
+# 对只有 1 次大维护的台（仅 A5），用其余台的中位 T_L 填充
 valid_TL = rule.loc[rule["T_L_mean"].notna() & np.isfinite(rule["T_L_mean"]),
                     "T_L_mean"]
 T_L_fallback = np.median(valid_TL) if len(valid_TL) > 0 else 365.0

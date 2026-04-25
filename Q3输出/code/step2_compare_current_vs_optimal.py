@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-ROOT = Path("/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition")
+ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
 
 rule_now = pd.read_csv(ROOT / "Q2输出/tables/fixed_maintenance_rule.csv")
 life_now = pd.read_csv(ROOT / "Q2输出/tables/life_prediction.csv")

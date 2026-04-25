@@ -4,14 +4,15 @@ Q3.3b  用 20 年地平线重新评估"当前规律"的真实寿命和 EAC
   本步把 10 台都在 20 年地平线下重新模拟，直接对比 Q3 最优方案
 """
 import sys
-sys.path.insert(0, "/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition/Q3输出/code")
-from step1_grid_search_eac import simulate_y, compute_life_days  # 复用
-
 import pandas as pd
 import numpy as np
 from pathlib import Path
 
-ROOT = Path("/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition")
+# 把当前 code 目录加入 sys.path 以便 import step1_grid_search_eac
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from step1_grid_search_eac import simulate_y, compute_life_days  # 复用
+
+ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
 rule = pd.read_csv(ROOT / "Q2输出/tables/fixed_maintenance_rule.csv")
 
 C_BUY = 300.0

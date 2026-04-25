@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-ROOT = Path("/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition")
+ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
 df = pd.read_csv(ROOT / "Q1输出/data/daily_with_vars.csv", parse_dates=["d"])
 mnt = pd.read_csv(ROOT / "Q1输出/data/maintenance_events.csv", parse_dates=["d"])
 
