@@ -112,18 +112,18 @@ def simulate_filter(i, T_M, T_L, seed=0):
     rec["A_m_f"] = rec["A_m"].fillna(0)
     rec["A_l_f"] = rec["A_l"].fillna(0)
 
-    # 计算 y_sim
-    # 设计矩阵需要：const, I(i=2..10), t_ik (only t_i{i}=t, others=0), sin1, cos1, H_m7, H_l7, A_m_f, A_l_f, has_m, has_l
+    # === 应用论文 Eq.(1) 28 个回归系数到未来日期 ===
+    # 论文公式: y = α_i + β_i·t + γ_1 sin + γ_2 cos
+    #             + δ_m H^{m,7} + δ_l H^{l,7}
+    #             + ρ_m Ã^m + ρ_l Ã^l + η_m 1^m + η_l 1^l
+    # 代码列名一一对应: const+I(i=k), t_ik, sin1, cos1, H_m7, H_l7, A_m_f, A_l_f, has_m, has_l
     y = np.full(n, beta_dict.get("const", 0.0))
-    # 过滤器 FE
     if f"I(i={i})" in beta_dict:
-        y += beta_dict[f"I(i={i})"]
-    # β_i·t
-    y += beta_dict[f"t_i{i}"] * rec["t"].values
-    # 季节
-    y += beta_dict["sin1"] * rec["sin1"].values
-    y += beta_dict["cos1"] * rec["cos1"].values
-    # 维护
+        y += beta_dict[f"I(i={i})"]                 # α_i (filter FE)
+    y += beta_dict[f"t_i{i}"] * rec["t"].values     # β_i · t
+    y += beta_dict["sin1"] * rec["sin1"].values     # γ_1 sin
+    y += beta_dict["cos1"] * rec["cos1"].values     # γ_2 cos
+    # δ_m H_m7, δ_l H_l7, ρ_m A_m_f, ρ_l A_l_f, η_m has_m, η_l has_l
     for col in ["H_m7", "H_l7", "A_m_f", "A_l_f", "has_m", "has_l"]:
         y += beta_dict[col] * rec[col].values
 

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.21)  25 APR 2026 19:39
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.21)  25 APR 2026 20:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -895,101 +895,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [5]
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[6]
-File: figures/diag_A4_A6_raw.png Graphic file (type bmp)
-<figures/diag_A4_A6_raw.png>
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[7]
-File: figures/fig1_daily_series_outliers.png Graphic file (type bmp)
-<figures/fig1_daily_series_outliers.png>
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[8]
-File: figures/fig4_trend_per_filter.png Graphic file (type bmp)
-<figures/fig4_trend_per_filter.png>
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[9]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[10]
-File: figures/fig_q2_life_bar.png Graphic file (type bmp)
-<figures/fig_q2_life_bar.png>
-File: figures/fig_q2_rolling_avg.png Graphic file (type bmp)
-<figures/fig_q2_rolling_avg.png>
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[11]
-Overfull \hbox (42.74113pt too wide) in paragraph at lines 365--366
-[]$\OML/cmm/m/it/12 T[] \OMS/cmsy/m/n/12 2 f\OT1/cmr/m/n/12 30\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 40\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 50\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 60\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 70\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 80\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 90\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 100\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 120\OMS/cmsy/m/n/12 g$ |\TU/STSong(0)/m/n/12 （\TU/lmr/m/n/12 9 \TU/STSong(0)/m/n/12 档） ，| $\OML/cmm/m/it/12 T[] \OMS/cmsy/m/n/12 2 f\OT1/cmr/m/n/12 120\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 180\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 240\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 300\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 360\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 450\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 540\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 720\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 1g$
- []
-
-File: figures/fig_q3_eac_comparison.png Graphic file (type bmp)
-<figures/fig_q3_eac_comparison.png>
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[12]
-File: figures/fig_q3_eac_heatmap.png Graphic file (type bmp)
-<figures/fig_q3_eac_heatmap.png>
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[13]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[14]
-
 Package fontspec Info: 
 (fontspec)             Script 'CJK' not explicitly supported within font
 (fontspec)             'STFangsong'. Check the typeset output, and if it is
@@ -1022,6 +927,122 @@ Package fontspec Info:
 (fontspec)             - 'normal' (m/n) with NFSS spec.:
 (fontspec)             <->"STFangsong/OT:script=hani;language=dflt;"
 
+
+Overfull \hbox (33.43945pt too wide) in paragraph at lines 203--218
+ [][] 
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[6]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[7]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[8]
+File: figures/diag_A4_A6_raw.png Graphic file (type bmp)
+<figures/diag_A4_A6_raw.png>
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[9]
+File: figures/fig1_daily_series_outliers.png Graphic file (type bmp)
+<figures/fig1_daily_series_outliers.png>
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[10]
+File: figures/fig4_trend_per_filter.png Graphic file (type bmp)
+<figures/fig4_trend_per_filter.png>
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[11]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[12]
+File: figures/fig_q2_life_bar.png Graphic file (type bmp)
+<figures/fig_q2_life_bar.png>
+File: figures/fig_q2_rolling_avg.png Graphic file (type bmp)
+<figures/fig_q2_rolling_avg.png>
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[13]
+Overfull \hbox (42.74113pt too wide) in paragraph at lines 428--429
+[]$\OML/cmm/m/it/12 T[] \OMS/cmsy/m/n/12 2 f\OT1/cmr/m/n/12 30\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 40\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 50\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 60\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 70\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 80\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 90\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 100\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 120\OMS/cmsy/m/n/12 g$ |\TU/STSong(0)/m/n/12 （\TU/lmr/m/n/12 9 \TU/STSong(0)/m/n/12 档） ，| $\OML/cmm/m/it/12 T[] \OMS/cmsy/m/n/12 2 f\OT1/cmr/m/n/12 120\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 180\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 240\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 300\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 360\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 450\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 540\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 720\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 1g$
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[14]
+File: figures/fig_q3_eac_comparison.png Graphic file (type bmp)
+<figures/fig_q3_eac_comparison.png>
+File: figures/fig_q3_eac_heatmap.png Graphic file (type bmp)
+<figures/fig_q3_eac_heatmap.png>
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[15]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[16]
 File: figures/fig_q4_tornado.png Graphic file (type bmp)
 <figures/fig_q4_tornado.png>
 File: figures/fig_q4_elasticity.png Graphic file (type bmp)
@@ -1034,7 +1055,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[15]
+[17]
 File: figures/fig_q4_joint_heatmap.png Graphic file (type bmp)
 <figures/fig_q4_joint_heatmap.png>
 
@@ -1045,15 +1066,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[16]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 528.
+[18]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 591.
 
 
 LaTeX Font Warning: Font shape `TU/STFangsong(0)/m/it' undefined
-(Font)              using `TU/STFangsong(0)/m/n' instead on input line 529.
+(Font)              using `TU/STFangsong(0)/m/n' instead on input line 592.
 
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 534.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 597.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1061,7 +1082,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[17]
+[19]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1069,7 +1090,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[18] (./main.aux)
+[20] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
@@ -1081,19 +1102,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FDF93098B932EB6AC654390DEA4B9AB5;5046.
+(rerunfilecheck)             Checksum: 2B70343D2FEE3E94454D4D32D2201F8D;5192.
  ) 
 Here is how much of TeX's memory you used:
- 20986 strings out of 468168
- 444792 string characters out of 5432815
- 1179873 words of memory out of 5000000
- 49360 multiletter control sequences out of 15000+600000
+ 20992 strings out of 468168
+ 444923 string characters out of 5432815
+ 1178873 words of memory out of 5000000
+ 49366 multiletter control sequences out of 15000+600000
  646954 words of font info for 159 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,13n,114p,1224b,1273s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (18 pages).
+Output written on main.pdf (20 pages).

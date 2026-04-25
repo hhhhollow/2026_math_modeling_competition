@@ -83,17 +83,17 @@
 \noindent
 \textbf{问题一}：先按"日中位数 + 单日有效样本数 $\ge 12$"聚合得到 7390 行日表（5046 行有效），再用 IQR$\times 1.5$ 法剔除异常点，识别 94 次维护事件（81 中维护、13 大维护）。基于固定效应模型
 \[
-y_{i,d} = \alpha_i + \beta_i \cdot t + \gamma_1 \sin(2\pi t/T) + \gamma_2 \cos(2\pi t/T) + \delta_m H^{m,7} + \delta_l H^{l,7} + \rho_m A^m + \rho_l A^l + \varepsilon
+y_{i,d} = \alpha_i + \beta_i t + \gamma_1 \sin\tfrac{2\pi t}{T} + \gamma_2 \cos\tfrac{2\pi t}{T} + \delta_m H^{m,7}_{i,d} + \delta_l H^{l,7}_{i,d} + \rho_m \tilde{A}^m_{i,d} + \rho_l \tilde{A}^l_{i,d} + \eta_m \mathbf{1}_i^m + \eta_l \mathbf{1}_i^l + \varepsilon_{i,d}
 \]
-完成 OLS 拟合，训练 $R^2 = 0.838$。提取 5 个核心衍生指标：日中位数 $y_{i,d}$、季节性 sin/cos 项、维护后短期改善 $R^{q,7}$（其中 $\theta = 4.33$ 为大维护改善的 10\% 分位）、自然衰减斜率 $\beta_i$、距上次维护天数 $A^q$。
+共 28 个参数（10 截距 + 10 时间斜率 + 2 季节 + 4 维护脉冲与衰减 + 2 启动哑变量），OLS 拟合训练 $R^2 = 0.838$。提取 5 个核心衍生指标：日中位数 $y_{i,d}$、季节性 sin/cos 项、维护后短期改善 $R^{q,7}$（其中 $\theta = 4.33$ 为大维护改善的 10\% 分位）、自然衰减斜率 $\beta_i$、距上次维护天数 $\tilde{A}^q$。
 
 \medskip
 \noindent
-\textbf{问题二}：从附件 2 抽取每台经验维护周期 $(T_M^i, T_L^i)$，其中 A4、A8 历史 0 次大维护，与题目修订后约束 $0 \le N^l_{i,y} \le 4$ 相符。在 $\gamma_q$ 共线性问题处用网格交叉验证确认 $\gamma = 0$ 最优，进一步比较线性 vs 指数衰减（验证 RMSE $12.96 < 13.59$）确定线性模型。向前模拟 10 年，以"滚动 365 日均值首次跌破 37" 判定寿命，得 5 台 10 年内退役（按先后：\textbf{A10}: 1.15y、A8: 1.89y、A9: 2.68y、A3: 3.26y、A5: 6.35y），其余 5 台不退役。
+\textbf{问题二}：从附件 2 抽取每台经验维护周期 $(T_M^i, T_L^i)$，其中 A4、A8 历史 0 次大维护，与题目修订后约束 $0 \le n_l^i \le 4$ 次/年相符。在 $\gamma_q$ 共线性问题处用网格交叉验证确认 $\gamma = 0$ 最优，进一步比较线性 vs 指数衰减（验证 RMSE $12.96 < 13.59$）确定线性模型。向前模拟 10 年，以"滚动 365 日均值首次跌破 37" 判定寿命，得 5 台 10 年内退役（按先后：\textbf{A10}: 1.15y、A8: 1.89y、A9: 2.68y、A3: 3.26y、A5: 6.35y），其余 5 台不退役。
 
 \medskip
 \noindent
-\textbf{问题三}：定义等值年化成本 $\mathrm{EAC} = (c_{\text{buy}} + n_M c_m + n_L c_l)/L$。在网格 $T_M \in \{30,...,120\}$、$T_L \in \{120,...,720, \infty\}$ 上扫描 810 个组合，找最小 EAC。结果显示 \textbf{10 台合计可节省 176.4 万元/年（15.0\%）}，其中 A6 节省 66.6\%、A2 节省 51.1\% 最显著；A8、A10 因寿命太短，最优 EAC 仍超 178、282 万元/年，建议优先考虑提前更换。
+\textbf{问题三}：定义等值年化成本 $\mathrm{EAC} = (c_{\text{buy}} + N_M c_m + N_L c_l)/L$（其中 $N_M, N_L$ 为寿命 $L$ 内的维护总次数）。在网格 $T_M \in \{30,...,120\}$、$T_L \in \{120,...,720, \infty\}$ 上扫描 810 个组合，找最小 EAC。结果显示 \textbf{10 台合计可节省 176.4 万元/年（15.0\%）}，其中 A6 节省 66.6\%、A2 节省 51.1\% 最显著；A8、A10 因寿命太短，最优 EAC 仍超 178、282 万元/年，建议优先考虑提前更换。
 
 \medskip
 \noindent
@@ -115,11 +115,11 @@ y_{i,d} = \alpha_i + \beta_i \cdot t + \gamma_1 \sin(2\pi t/T) + \gamma_2 \cos(2
 \section{问题重述与分析}
 
 \subsection{问题背景与数据}
-某污水处理厂部署 10 台并联过滤设备，每台每小时采集 1 次透水率 $p_{i,t}$（无量纲指数）。两年观测共获 11.5 万条小时级数据。维护分三类：
+某污水处理厂部署 10 台并联过滤设备，每台每小时采集 1 次透水率 $p_{i,t}$（无量纲指数）。两年观测共获 114977 条小时级数据。维护分三类：
 \begin{itemize}[leftmargin=2em]
   \item \textbf{小维护}：日常清洁，对透水率影响可忽略；
   \item \textbf{中维护}（M）：成本 $c_m = 3$ 万元，每台每年 4--12 次；
-  \item \textbf{大维护}（L）：成本 $c_l = 12$ 万元，每台每年 \textbf{0--4} 次（题目修订后）。
+  \item \textbf{大维护}（L）：成本 $c_l = 12$ 万元，每台每年 \textbf{0--4} 次。
 \end{itemize}
 新购设备 $c_{\text{buy}} = 300$ 万元。退役判据：年度（滚动 365 日）平均透水率 $\bar{y} < 37$ 且大维护无法有效改善。
 
@@ -178,7 +178,8 @@ $d, t$ & 日期 / 距离起点天数 & 天 \\
 $y_{i,d}$ & 第 $i$ 台第 $d$ 日的中位透水率 & 无量纲 \\
 $\alpha_i, \beta_i$ & 第 $i$ 台的截距 / 自然衰减斜率 & --- / 1/天 \\
 $T_M^i, T_L^i$ & 中/大维护周期 & 天 \\
-$N_M^i, N_L^i$ & 寿命内中/大维护次数 & 次 \\
+$N_M^i, N_L^i$ & 寿命 $L_i$ 内中/大维护总次数 & 次 \\
+$n_M^i, n_L^i$ & 每年中/大维护次数（$=N/L$ 或 $=365.25/T$） & 次/年 \\
 $L_i$ & 第 $i$ 台的寿命 & 年 \\
 $H_{i,d}^{q,w}$ & 第 $d$ 日是否处于 $q$ 类维护后 $w$ 日内 & 0/1 \\
 $A_{i,d}^q$ & 第 $d$ 日距上次 $q$ 类维护天数 & 天 \\
@@ -186,9 +187,37 @@ $R_{i,k}^{q,7}$ & 第 $k$ 次 $q$ 类维护的 7 日改善量 & 无量纲 \\
 $c_{\text{buy}}, c_m, c_l$ & 新购、中维护、大维护成本 & 万元 \\
 $\mathrm{EAC}_i$ & 第 $i$ 台的等值年化成本 & 万元/年 \\
 $\theta$ & 退役判据的"维护无效"阈值 & 无量纲 \\
+$\mathbf{1}_i^q$ & 第 $i$ 台历史是否经历过 $q$ 类维护 & 0/1 \\
+$\tilde{A}_{i,d}^q$ & $A_{i,d}^q$ 的填零版本（无维护时取 0） & 天 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{论文符号与代码变量对照}
+
+为便于评委核对论文公式与代码实现，列出主要符号与 Python 实现的对照（详见附录代码）：
+
+\begin{table}[H]
+\centering
+\caption{论文符号 $\leftrightarrow$ 代码变量对照}
+\begin{tabular}{lll}
+\toprule
+论文符号 & 代码变量名 & 实现说明 \\
+\midrule
+$\alpha_i$ (常数 + 过滤器固定效应) & \texttt{const}, \texttt{I(i=2)}, ..., \texttt{I(i=10)} & 以 A1 为基准的哑变量编码 \\
+$\beta_i \cdot t$ (过滤器特定时间斜率) & \texttt{t\_i1}, ..., \texttt{t\_i10} & 过滤器与时间的交互项 \\
+$\gamma_1 \sin(\cdot), \gamma_2 \cos(\cdot)$ & \texttt{sin1}, \texttt{cos1} & 一阶谐波，周期 $T=365.25$ \\
+$\delta_m H_{i,d}^{m,7}$ & \texttt{H\_m7} & 中维护后 7 日内 = 1 \\
+$\delta_l H_{i,d}^{l,7}$ & \texttt{H\_l7} & 大维护后 7 日内 = 1 \\
+$\rho_m \tilde{A}_{i,d}^m$ & \texttt{A\_m\_f} & 距上次中维护天数（NaN 填 0） \\
+$\rho_l \tilde{A}_{i,d}^l$ & \texttt{A\_l\_f} & 距上次大维护天数（NaN 填 0） \\
+$\eta_m \mathbf{1}_i^m$ & \texttt{has\_m} & 历史是否做过中维护 \\
+$\eta_l \mathbf{1}_i^l$ & \texttt{has\_l} & 历史是否做过大维护 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{说明}：原始 $A_{i,d}^q$ 在过滤器从未做过 $q$ 类维护时无定义，回归实现时通过哑变量 $\mathbf{1}_i^q$ + 填零变量 $\tilde{A}_{i,d}^q$ 联合表示，等价于"分段常数 + 距离衰减"。设计矩阵共 28 列。代码 \texttt{Q1输出/code/step6\_ols\_wls.py} 与 \texttt{Q3输出/code/step1\_grid\_search\_eac.py} 的关键行已用论文符号注释，便于评委对照。
 
 % =====================================================================
 \section{数据预处理}
@@ -200,25 +229,50 @@ $\theta$ & 退役判据的"维护无效"阈值 & 无量纲 \\
 按 IQR$\times 1.5$ 法剔除头尾异常，仅 A1、A4、A5、A7 各有 19--41 个异常点，集中在首月启动期。
 
 \subsection{维护事件指标构造}
-对每台 $i$、每个维护事件 $\tau$，定义：
+设 $\mathcal{T}_i^q$ 为第 $i$ 台 $q \in \{m, l\}$ 类维护的事件集合。对每个维护事件 $\tau \in \mathcal{T}_i^q$，定义：
 \begin{align}
-H_{i,d}^{q,w} &= \mathbf{1}\{\tau < d \le \tau + w\}, \quad w = 7, \\
-A_{i,d}^q &= d - \max\{\tau \mid \tau \le d, \tau \in \mathcal{T}_i^q\}, \\
+H_{i,d}^{q,w} &= \max_{\tau \in \mathcal{T}_i^q} \mathbf{1}\{\tau < d \le \tau + w\}, \quad w = 7, \\
+A_{i,d}^q &= d - \max\{\tau \mid \tau \in \mathcal{T}_i^q,\ \tau \le d\}, \\
+\mathbf{1}_i^q &= \mathbf{1}\{\mathcal{T}_i^q \cap \{1, \dots, d\} \neq \emptyset\}, \\
+\tilde{A}_{i,d}^q &= \mathbf{1}_i^q \cdot A_{i,d}^q, \\
 R_{i,k}^{q,7} &= \frac{1}{7}\sum_{d=\tau_k+1}^{\tau_k+7} y_{i,d} - \frac{1}{7}\sum_{d=\tau_k-7}^{\tau_k-1} y_{i,d}.
 \end{align}
+
+引入 $\mathbf{1}_i^q$ 和 $\tilde{A}_{i,d}^q$ 是为了避免 OLS 把"过滤器从未做过 $q$ 类维护"（如 A4, A8 的大维护）和"刚做过 $q$ 类维护"两种情况混为一谈：前者无 $q$ 类维护历史，后者距离 = 0。
 
 % =====================================================================
 \section{Q1 模型建立与求解}
 
 \subsection{固定效应回归模型}
 
-主模型为：
+主模型为（共 28 个待估参数）：
 \begin{equation}
-y_{i,d} = \alpha_i + \beta_i \cdot t_d + \gamma_1 \sin(2\pi t_d/T) + \gamma_2 \cos(2\pi t_d/T) + \delta_m H_{i,d}^{m,7} + \delta_l H_{i,d}^{l,7} + \rho_m A_{i,d}^m + \rho_l A_{i,d}^l + \varepsilon_{i,d}
+\begin{aligned}
+y_{i,d} ={} & \alpha_i + \beta_i \cdot t_d + \gamma_1 \sin\!\left(\tfrac{2\pi t_d}{T}\right) + \gamma_2 \cos\!\left(\tfrac{2\pi t_d}{T}\right) \\
+& {} + \delta_m H_{i,d}^{m,7} + \delta_l H_{i,d}^{l,7}
+       + \rho_m \tilde{A}_{i,d}^m + \rho_l \tilde{A}_{i,d}^l \\
+& {} + \eta_m \mathbf{1}_i^m + \eta_l \mathbf{1}_i^l
+       + \varepsilon_{i,d}
+\end{aligned}
 \label{eq:Q1_main}
 \end{equation}
 
-其中 $\alpha_i$（10 个）通过过滤器哑变量实现，$\beta_i$（10 个）通过过滤器 $\times$ 时间交互项实现。共 28 个参数。
+其中：
+\begin{itemize}[leftmargin=2em]
+  \item $\alpha_i$（10 个）通过 1 个常数项 + 9 个过滤器哑变量 $I(i=k), k=2,\dots,10$ 实现；
+  \item $\beta_i$（10 个）通过过滤器与时间的交互项 $I(i=k) \cdot t$ 实现；
+  \item 季节项 $\gamma_1, \gamma_2$（2 个），周期 $T = 365.25$ 天；
+  \item 维护脉冲 $\delta_m, \delta_l$（2 个），距离衰减 $\rho_m, \rho_l$（2 个）；
+  \item 启动哑变量 $\eta_m, \eta_l$（2 个），用于解决 $\tilde{A}_{i,d}^q$ 在 "过滤器从未做过 $q$ 类维护" 时的 0 值与"刚维护后" 的 0 值的歧义。
+\end{itemize}
+
+合计 $1 + 9 + 10 + 2 + 2 + 2 + 2 = 28$ 个参数。
+
+填零变量定义：
+\[
+\tilde{A}_{i,d}^q = \begin{cases} A_{i,d}^q, & \text{若 } \mathbf{1}_i^q = 1 \\ 0, & \text{若 } \mathbf{1}_i^q = 0 \end{cases}, \qquad
+\mathbf{1}_i^q = \begin{cases} 1, & \text{若 } \mathcal{T}_i^q \cap \{1,\dots,d\} \neq \emptyset \\ 0, & \text{否则} \end{cases}
+\]
 
 \subsection{OLS 求解结果}
 
@@ -227,6 +281,7 @@ y_{i,d} = \alpha_i + \beta_i \cdot t_d + \gamma_1 \sin(2\pi t_d/T) + \gamma_2 \c
 \begin{itemize}[leftmargin=2em]
   \item 维护短期效应 $\delta_m = 2.31$、$\delta_l = 0.94$（均为正，符合直觉）
   \item 距离衰减 $\rho_m = -0.21$、$\rho_l = -0.064$（均为负，符合直觉）
+  \item 启动哑变量 $\eta_m = 10.28$、$\eta_l = 11.78$（捕捉首次维护引起的"基线跳变"）
   \item 季节性振幅 $\sqrt{\gamma_1^2 + \gamma_2^2} \approx 12.7$
   \item 自然衰减 $\beta_i$：A2 $-3.5$、A3 $-15.1$、...、A10 $-45.4$；\textbf{A4 +19.1, A6 +28.3 异常}
 \end{itemize}
@@ -348,16 +403,24 @@ A4, A6 & $> 10$ & --- & --- & --- & 模型外推不可靠 \\
 \subsection{优化目标：等值年化成本（EAC）}
 
 \begin{equation}
-\boxed{\mathrm{EAC}_i(T_M, T_L) = \frac{c_{\text{buy}} + n_M(T_M, L) \cdot c_m + n_L(T_L, L) \cdot c_l}{L_i(T_M, T_L)}}
+\boxed{\mathrm{EAC}_i(T_M, T_L) = \frac{c_{\text{buy}} + N_M(T_M, L) \cdot c_m + N_L(T_L, L) \cdot c_l}{L_i(T_M, T_L)}}
+\label{eq:EAC}
 \end{equation}
-其中 $n_M = L \cdot 365.25 / T_M$，$n_L = L \cdot 365.25 / T_L$（若 $T_L = \infty$ 则 $n_L = 0$）。
+
+其中 $L_i$ 单位为年，寿命内维护总次数为：
+\begin{align}
+N_M(T_M, L) &= \frac{L \cdot 365.25}{T_M}, \\
+N_L(T_L, L) &= \begin{cases} L \cdot 365.25 / T_L, & T_L < \infty \\ 0, & T_L = \infty \end{cases}.
+\end{align}
+
+每年频次记为 $n_M = N_M / L = 365.25 / T_M$，$n_L = N_L / L$，用于约束验证。
 
 \subsection{决策变量与约束}
 
 \begin{align}
 \min_{T_M, T_L} \quad & \mathrm{EAC}_i(T_M, T_L) \\
 \text{s.t.} \quad & 30 \le T_M \le 120 \quad\text{(每年 3.0--12.2 次中维护)} \\
-& T_L \ge 91.3 \text{ 或 } T_L = \infty \quad\text{(每年 } 0 \le N_l \le 4 \text{ 次大维护)}
+& T_L \ge 91.3 \text{ 或 } T_L = \infty \quad\text{(每年 } 0 \le n_l \le 4 \text{ 次大维护)}
 \end{align}
 
 \subsection{求解方法：网格搜索}
@@ -371,7 +434,7 @@ $T_M \in \{30, 40, 50, 60, 70, 80, 90, 100, 120\}$（9 档），$T_L \in \{120, 
 \caption{Q3 每台最优维护方案与 EAC}
 \begin{tabular}{cccccccc}
 \toprule
-$i$ & $T_M^*$ (d) & $T_L^*$ (d) & $L^*$（年） & 退役 & $N_M$/年 & $N_L$/年 & EAC* (万/年) \\
+$i$ & $T_M^*$ (d) & $T_L^*$ (d) & $L^*$（年） & 退役 & $n_M$/年 & $n_L$/年 & EAC* (万/年) \\
 \midrule
 1  & 120 & 720 & 20.00$^*$ & 否 & 3.04 & 0.51 & 30.22 \\
 2  & 80  & 450 & 8.47 & 是 & 4.57 & 0.81 & 58.88 \\

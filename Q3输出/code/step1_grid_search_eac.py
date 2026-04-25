@@ -127,18 +127,26 @@ def simulate_y(i, T_M, T_L):
     A_m_f = np.where(np.isnan(A_m), 0.0, A_m)
     A_l_f = np.where(np.isnan(A_l), 0.0, A_l)
 
+    # === 应用论文 Eq.(1) 的 28 个回归系数 (β 来自 Q2 winner_coeffs.csv) ===
+    # 论文符号 ↔ 代码:
+    #   α_i  →  const + I(i={i})   (filter intercept)
+    #   β_i·t →  t_i{i} * t         (filter time slope)
+    #   γ_1, γ_2 →  sin1, cos1     (季节)
+    #   δ_m, δ_l →  H_m7, H_l7     (维护脉冲)
+    #   ρ_m, ρ_l →  A_m_f, A_l_f   (距离衰减)
+    #   η_m, η_l →  has_m, has_l   (启动哑变量)
     y = np.full(n_future, beta_dict.get("const", 0.0))
     if f"I(i={i})" in beta_dict:
-        y += beta_dict[f"I(i={i})"]
-    y += beta_dict[f"t_i{i}"] * future_t
-    y += beta_dict["sin1"] * future_sin1
-    y += beta_dict["cos1"] * future_cos1
-    y += beta_dict["H_m7"] * H_m7
-    y += beta_dict["H_l7"] * H_l7
-    y += beta_dict["A_m_f"] * A_m_f
-    y += beta_dict["A_l_f"] * A_l_f
-    y += beta_dict["has_m"] * has_m
-    y += beta_dict["has_l"] * has_l
+        y += beta_dict[f"I(i={i})"]                # α_i (filter FE)
+    y += beta_dict[f"t_i{i}"] * future_t           # β_i · t
+    y += beta_dict["sin1"] * future_sin1           # γ_1 sin
+    y += beta_dict["cos1"] * future_cos1           # γ_2 cos
+    y += beta_dict["H_m7"] * H_m7                  # δ_m H^{m,7}
+    y += beta_dict["H_l7"] * H_l7                  # δ_l H^{l,7}
+    y += beta_dict["A_m_f"] * A_m_f                # ρ_m \tilde{A}^m
+    y += beta_dict["A_l_f"] * A_l_f                # ρ_l \tilde{A}^l
+    y += beta_dict["has_m"] * has_m                # η_m 1^m
+    y += beta_dict["has_l"] * has_l                # η_l 1^l
 
     return y, len(future_m), len(future_l)
 
