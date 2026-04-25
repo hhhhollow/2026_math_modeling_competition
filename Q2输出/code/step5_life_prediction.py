@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-ROOT = Path("/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition")
+ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
 fut = pd.read_csv(ROOT / "Q2输出/data/future_trajectories.csv", parse_dates=["d"])
 
 # 历史观测 + 未来外推 合并，以便滚动 365 日窗口在过渡期也能计算
@@ -21,12 +21,11 @@ merged["y_mix"] = merged["y_obs"].fillna(merged["y_sim"])
 merged = merged.sort_values(["i","d"]).reset_index(drop=True)
 
 # 滚动 365 天均值（每台独立）
-def rolling_365(sub):
-    sub = sub.sort_values("d").reset_index(drop=True).copy()
-    sub["rolling_avg_365"] = sub["y_mix"].rolling(window=365, min_periods=180).mean()
-    return sub
-
-merged = merged.groupby("i", group_keys=False).apply(rolling_365)
+merged = merged.sort_values(["i", "d"]).reset_index(drop=True)
+merged["rolling_avg_365"] = (
+    merged.groupby("i")["y_mix"]
+    .transform(lambda s: s.rolling(window=365, min_periods=180).mean())
+)
 merged.to_csv(ROOT / "Q2输出/data/full_with_rolling.csv", index=False)
 
 # 观测期末的滚动均值（2026-01-19 之前）

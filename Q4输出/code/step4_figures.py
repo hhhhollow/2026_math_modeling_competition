@@ -12,7 +12,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-ROOT = Path("/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition")
+ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
 
 fleet = pd.read_csv(ROOT / "Q4输出/tables/sensitivity_total_fleet.csv")
 sweep = pd.read_csv(ROOT / "Q4输出/tables/sensitivity_single_param.csv")

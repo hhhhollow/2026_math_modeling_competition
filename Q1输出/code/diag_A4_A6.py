@@ -9,7 +9,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-ROOT = Path("/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition")
+ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
 
 hourly = pd.read_csv(ROOT / "Q1输出/data/hourly_long.csv", parse_dates=["h"])
 hourly = hourly.rename(columns={"h":"t","p":"y"})

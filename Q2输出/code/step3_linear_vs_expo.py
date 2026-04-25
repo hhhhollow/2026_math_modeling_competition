@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-ROOT = Path("/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition")
+ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
 df = pd.read_csv(ROOT / "Q2输出/data/Q2_design_with_C.csv", parse_dates=["d"])
 df = df.dropna(subset=["y"]).copy()
 df["A_m_f"] = df["A_m"].fillna(0)

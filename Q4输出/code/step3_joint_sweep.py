@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-ROOT = Path("/sessions/serene-cool-hawking/mnt/2026_math_modeling_competition")
+ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
 grid = pd.read_csv(ROOT / "Q3输出/tables/eac_grid_all.csv")
 
 C_BUY_BASE = 300.0
