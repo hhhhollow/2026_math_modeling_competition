@@ -56,14 +56,11 @@ def simulate_filter(i, T_M, T_L, seed=0):
 
     future_l = []
     if np.isfinite(T_L):
-        if last_l is None:
-            # 0 大维护但 T_L 有限——不发生
-            pass
-        else:
-            nxt = last_l + pd.Timedelta(days=int(round(T_L)))
-            while nxt < future_days[-1]:
-                future_l.append(nxt)
-                nxt += pd.Timedelta(days=int(round(T_L)))
+        base_l = last_l if last_l is not None else last_m
+        nxt = base_l + pd.Timedelta(days=int(round(T_L)))
+        while nxt < future_days[-1]:
+            future_l.append(nxt)
+            nxt += pd.Timedelta(days=int(round(T_L)))
 
     all_m = past_m + future_m
     all_l = past_l + future_l

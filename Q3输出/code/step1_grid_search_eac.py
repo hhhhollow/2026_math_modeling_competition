@@ -185,56 +185,61 @@ def compute_life_days(i, y_sim):
     L_days = (L_date - start_future).days
     return L_days, below.iloc[0]
 
-# -------- 主循环 --------
-start_time = time.time()
-rows = []
-for i in range(1, 11):
-    best = dict(EAC=np.inf)
-    for T_M in T_M_grid:
-        for T_L in T_L_grid:
-            y_sim, _, _ = simulate_y(i, T_M, T_L)
-            L_days, rav_at_L = compute_life_days(i, y_sim)
-            if np.isinf(L_days):
-                L_years = 20.0  # 上限
-                retired = False
-            else:
-                L_years = L_days / 365.25
-                retired = True
-            # 成本
-            n_M = L_years * 365.25 / T_M
-            n_L = L_years * 365.25 / T_L if np.isfinite(T_L) else 0.0
-            cost_total = C_BUY + n_M * C_M + n_L * C_L
-            EAC = cost_total / L_years
-            row = dict(
-                i=i, T_M=T_M, T_L=T_L if np.isfinite(T_L) else 99999,
-                T_L_label="inf" if np.isinf(T_L) else str(int(T_L)),
-                L_days=int(L_days) if np.isfinite(L_days) else 99999,
-                L_years=round(L_years, 3),
-                retired=retired,
-                n_M=round(n_M, 2),
-                n_L=round(n_L, 2),
-                cost_total=round(cost_total, 2),
-                EAC=round(EAC, 3),
-            )
-            rows.append(row)
-            if EAC < best["EAC"]:
-                best = row.copy()
-    elapsed = time.time() - start_time
-    print(f"A{i:2d}: T_M*={best['T_M']}, T_L*={best['T_L_label']}, "
-          f"L={best['L_years']:.2f}y, EAC*={best['EAC']:.2f} 万元/年  "
-          f"(retired={best['retired']})  [{elapsed:.1f}s]")
+def run_grid_search():
+    # -------- 主循环 --------
+    start_time = time.time()
+    rows = []
+    for i in range(1, 11):
+        best = dict(EAC=np.inf)
+        for T_M in T_M_grid:
+            for T_L in T_L_grid:
+                y_sim, _, _ = simulate_y(i, T_M, T_L)
+                L_days, rav_at_L = compute_life_days(i, y_sim)
+                if np.isinf(L_days):
+                    L_years = 20.0  # 上限
+                    retired = False
+                else:
+                    L_years = L_days / 365.25
+                    retired = True
+                # 成本
+                n_M = L_years * 365.25 / T_M
+                n_L = L_years * 365.25 / T_L if np.isfinite(T_L) else 0.0
+                cost_total = C_BUY + n_M * C_M + n_L * C_L
+                EAC = cost_total / L_years
+                row = dict(
+                    i=i, T_M=T_M, T_L=T_L if np.isfinite(T_L) else 99999,
+                    T_L_label="inf" if np.isinf(T_L) else str(int(T_L)),
+                    L_days=int(L_days) if np.isfinite(L_days) else 99999,
+                    L_years=round(L_years, 3),
+                    retired=retired,
+                    n_M=round(n_M, 2),
+                    n_L=round(n_L, 2),
+                    cost_total=round(cost_total, 2),
+                    EAC=round(EAC, 3),
+                )
+                rows.append(row)
+                if EAC < best["EAC"]:
+                    best = row.copy()
+        elapsed = time.time() - start_time
+        print(f"A{i:2d}: T_M*={best['T_M']}, T_L*={best['T_L_label']}, "
+              f"L={best['L_years']:.2f}y, EAC*={best['EAC']:.2f} 万元/年  "
+              f"(retired={best['retired']})  [{elapsed:.1f}s]")
 
-grid = pd.DataFrame(rows)
-grid.to_csv(ROOT / "Q3输出/tables/eac_grid_all.csv", index=False)
-print(f"\nSaved Q3输出/tables/eac_grid_all.csv  ({len(grid)} rows)")
+    grid = pd.DataFrame(rows)
+    grid.to_csv(ROOT / "Q3输出/tables/eac_grid_all.csv", index=False)
+    print(f"\nSaved Q3输出/tables/eac_grid_all.csv  ({len(grid)} rows)")
 
-# -------- 每台最优 --------
-best_rows = []
-for i in range(1, 11):
-    sub = grid[grid["i"] == i]
-    best = sub.loc[sub["EAC"].idxmin()].to_dict()
-    best_rows.append(best)
-best_df = pd.DataFrame(best_rows)
-best_df.to_csv(ROOT / "Q3输出/tables/optimal_rule_per_filter.csv", index=False)
-print(f"\nOptimal rule per filter:")
-print(best_df[["i","T_M","T_L_label","L_years","retired","n_M","n_L","cost_total","EAC"]].to_string(index=False))
+    # -------- 每台最优 --------
+    best_rows = []
+    for i in range(1, 11):
+        sub = grid[grid["i"] == i]
+        best = sub.loc[sub["EAC"].idxmin()].to_dict()
+        best_rows.append(best)
+    best_df = pd.DataFrame(best_rows)
+    best_df.to_csv(ROOT / "Q3输出/tables/optimal_rule_per_filter.csv", index=False)
+    print(f"\nOptimal rule per filter:")
+    print(best_df[["i","T_M","T_L_label","L_years","retired","n_M","n_L","cost_total","EAC"]].to_string(index=False))
+
+
+if __name__ == "__main__":
+    run_grid_search()

@@ -20,12 +20,13 @@
 \contentsline {subsection}{\numberline {6.1}当前固定维护规律}{12}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}累积维护项的 CV 选参}{12}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}线性 vs 指数衰减比较}{12}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}向前 10 年仿真与寿命判定}{13}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}10 台寿命预测结果}{13}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.4}A4 / A8 大维护策略的稳健性核查}{13}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}向前 10 年仿真与寿命判定}{13}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}10 台寿命预测结果}{13}{subsection.6.6}%
 \contentsline {section}{\numberline {7}Q3 模型建立与求解}{14}{section.7}%
 \contentsline {subsection}{\numberline {7.1}优化目标：等值年化成本（EAC）}{14}{subsection.7.1}%
 \contentsline {subsection}{\numberline {7.2}决策变量与约束}{14}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}求解方法：网格搜索}{14}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.3}求解方法：网格搜索}{15}{subsection.7.3}%
 \contentsline {subsection}{\numberline {7.4}10 台最优维护方案}{15}{subsection.7.4}%
 \contentsline {subsection}{\numberline {7.5}当前规律 vs 最优规律对比}{15}{subsection.7.5}%
 \contentsline {section}{\numberline {8}Q4 模型建立与求解}{17}{section.8}%
