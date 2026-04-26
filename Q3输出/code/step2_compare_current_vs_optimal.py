@@ -1,7 +1,7 @@
 """
 Q3.3  当前规律 vs 最优规律 对比
   - 当前规律：Q2 fixed_maintenance_rule.csv 的 T_M_use, T_L_use
-  - 当前 L：Q2 life_prediction.csv 的 L_year（inf 截断到 20 年作为上限）
+  - 当前 L：Q2 life_prediction.csv 的 L_year（inf 截断到 12 年作为上限）
   - 最优规律：Q3 step1 的 optimal_rule_per_filter.csv
 
 输出：

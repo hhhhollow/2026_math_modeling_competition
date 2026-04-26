@@ -35,12 +35,11 @@ start_future = pd.Timestamp("2026-01-20")
 # 寿命：未来段首次 rolling_avg < 37 的日期
 rows = []
 theta = 4.33
-eta_l = 2.25
-has_l_bump = 14.68   # from Q1 coeffs — first-time large maintenance adds ~14.68
-# Approx improvement for another large maintenance: Δ^l ≈ η_l (short-term pulse)
-# If first maintenance hasn't happened yet, additional jump is from has_l; else just η_l
-# We'll use η_l + 7 days worth of -ρ_l = -0.21 (approx) = +2.04 net over 7 days
-# This is simplified; just use η_l as the representative improvement.
+delta_l_pulse = 2.25  # H_l7 coefficient: short-term pulse after large maintenance
+has_l_bump = 14.68    # has_l coefficient: first-time large-maintenance baseline shift
+# Approx improvement for another large maintenance: Δ^l ≈ δ_l (H_l7 short-term pulse).
+# For an already-maintained filter, has_l is already 1, so another large maintenance
+# does not add the first-time has_l baseline shift. Use δ_l as a conservative proxy.
 
 for i in sorted(merged["i"].unique()):
     sub = merged[merged["i"] == i].copy()
@@ -58,8 +57,8 @@ for i in sorted(merged["i"].unique()):
         L_year = L_days / 365.25
         rolling_at_L = below["rolling_avg_365"].iloc[0]
 
-    # 该时刻"再做一次大维护"的预测改善量（用 η_l 近似）
-    delta_l_at_L = eta_l  # conservative lower bound — only the H_l7 pulse
+    # 该时刻"再做一次大维护"的预测改善量（用 δ_l 短期脉冲近似）
+    delta_l_at_L = delta_l_pulse
 
     # 起始（2026-01-20）时的滚动均值
     rolling_start = fut_sub["rolling_avg_365"].iloc[0]
