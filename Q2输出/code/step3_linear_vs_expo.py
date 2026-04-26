@@ -106,7 +106,22 @@ overall.to_csv(ROOT / "Q2输出/tables/Q2_lin_vs_exp_overall.csv", index=False)
 winner = "linear" if lin["rmse_va"] <= exp_model["rmse_va"] else "exponential"
 print(f"\n→ 择优: {winner}  (valid RMSE = "
       f"{lin['rmse_va'] if winner=='linear' else exp_model['rmse_va']:.3f})")
-final_beta = lin["beta"] if winner == "linear" else exp_model["beta"]
+
+# 验证集只用于选模型。选出模型族后，必须用 train+valid 的全部有效样本
+# 重新拟合最终系数，再交给 step4 做前向外推。
+df_final = pd.concat([df_tr, df_va], ignore_index=True)
+X_final, names = design(df_final)
+y_final = df_final["y"].values
+if winner == "linear":
+    final_beta, *_ = np.linalg.lstsq(X_final, y_final, rcond=None)
+    yhat_final = X_final @ final_beta
+else:
+    final_beta, *_ = np.linalg.lstsq(X_final, np.log(y_final), rcond=None)
+    yhat_final = np.exp(X_final @ final_beta)
+
+final_rmse = np.sqrt(((y_final - yhat_final)**2).mean())
+print(f"Final refit on train+valid: n={len(df_final)}, RMSE={final_rmse:.3f}")
+
 pd.DataFrame({"var": names, "beta": final_beta}).to_csv(
     ROOT / "Q2输出/tables/Q2_winner_coeffs.csv", index=False)
 with open(ROOT / "Q2输出/tables/Q2_winner.txt", "w") as f:

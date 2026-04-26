@@ -31,23 +31,37 @@ filters = sorted(df["i"].unique())
 ref = filters[0]
 
 def build_X(df, add_filter_specific_trend=True):
+    """构建论文 Eq.(1) 对应的设计矩阵 (28 列)。
+
+    论文符号 ↔ 代码列名 对照：
+        α_i  (filter intercepts)        → const + I(i=2)..I(i=10)   [共 10 列]
+        β_i · t  (filter-time slopes)   → t_i1, t_i2, ..., t_i10    [共 10 列]
+        γ_1, γ_2 (季节)                 → sin1, cos1                 [共 2 列]
+        δ_m H_{i,d}^{m,7}              → H_m7                        [共 1 列]
+        δ_l H_{i,d}^{l,7}              → H_l7                        [共 1 列]
+        ρ_m \\tilde{A}_{i,d}^m          → A_m_f                       [共 1 列]
+        ρ_l \\tilde{A}_{i,d}^l          → A_l_f                       [共 1 列]
+        η_m 1_i^m  (启动哑变量)         → has_m                       [共 1 列]
+        η_l 1_i^l                       → has_l                       [共 1 列]
+    合计 28 列。
+    """
     parts = [np.ones(len(df))]
     names = ["const"]
-    # 过滤器 FE
+    # ---- α_i: 过滤器固定效应 (以 A1 为基准)
     for i in filters[1:]:
         parts.append((df["i"] == i).astype(float).values)
         names.append(f"I(i={i})")
-    # 趋势 β_i · t 交互（每台一个）
+    # ---- β_i · t: 过滤器特定时间斜率
     if add_filter_specific_trend:
         for i in filters:
             parts.append(((df["i"] == i).astype(float) * df["t"]).values)
             names.append(f"t_i{i}")
     else:
         parts.append(df["t"].values); names.append("t")
-    # 季节
+    # ---- γ_1 sin + γ_2 cos: 一阶谐波季节项
     parts.append(df["sin1"].values); names.append("sin1")
     parts.append(df["cos1"].values); names.append("cos1")
-    # 维护
+    # ---- 维护项：δ_m H_m7, δ_l H_l7, ρ_m A_m_f, ρ_l A_l_f, η_m has_m, η_l has_l
     for col in ["H_m7", "H_l7", "A_m_f", "A_l_f", "has_m", "has_l"]:
         parts.append(df[col].values.astype(float)); names.append(col)
     X = np.column_stack(parts)

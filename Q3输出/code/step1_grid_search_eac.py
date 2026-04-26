@@ -127,18 +127,26 @@ def simulate_y(i, T_M, T_L):
     A_m_f = np.where(np.isnan(A_m), 0.0, A_m)
     A_l_f = np.where(np.isnan(A_l), 0.0, A_l)
 
+    # === 应用论文 Eq.(1) 的 28 个回归系数 (β 来自 Q2 winner_coeffs.csv) ===
+    # 论文符号 ↔ 代码:
+    #   α_i  →  const + I(i={i})   (filter intercept)
+    #   β_i·t →  t_i{i} * t         (filter time slope)
+    #   γ_1, γ_2 →  sin1, cos1     (季节)
+    #   δ_m, δ_l →  H_m7, H_l7     (维护脉冲)
+    #   ρ_m, ρ_l →  A_m_f, A_l_f   (距离衰减)
+    #   η_m, η_l →  has_m, has_l   (启动哑变量)
     y = np.full(n_future, beta_dict.get("const", 0.0))
     if f"I(i={i})" in beta_dict:
-        y += beta_dict[f"I(i={i})"]
-    y += beta_dict[f"t_i{i}"] * future_t
-    y += beta_dict["sin1"] * future_sin1
-    y += beta_dict["cos1"] * future_cos1
-    y += beta_dict["H_m7"] * H_m7
-    y += beta_dict["H_l7"] * H_l7
-    y += beta_dict["A_m_f"] * A_m_f
-    y += beta_dict["A_l_f"] * A_l_f
-    y += beta_dict["has_m"] * has_m
-    y += beta_dict["has_l"] * has_l
+        y += beta_dict[f"I(i={i})"]                # α_i (filter FE)
+    y += beta_dict[f"t_i{i}"] * future_t           # β_i · t
+    y += beta_dict["sin1"] * future_sin1           # γ_1 sin
+    y += beta_dict["cos1"] * future_cos1           # γ_2 cos
+    y += beta_dict["H_m7"] * H_m7                  # δ_m H^{m,7}
+    y += beta_dict["H_l7"] * H_l7                  # δ_l H^{l,7}
+    y += beta_dict["A_m_f"] * A_m_f                # ρ_m \tilde{A}^m
+    y += beta_dict["A_l_f"] * A_l_f                # ρ_l \tilde{A}^l
+    y += beta_dict["has_m"] * has_m                # η_m 1^m
+    y += beta_dict["has_l"] * has_l                # η_l 1^l
 
     return y, len(future_m), len(future_l)
 
@@ -177,56 +185,61 @@ def compute_life_days(i, y_sim):
     L_days = (L_date - start_future).days
     return L_days, below.iloc[0]
 
-# -------- 主循环 --------
-start_time = time.time()
-rows = []
-for i in range(1, 11):
-    best = dict(EAC=np.inf)
-    for T_M in T_M_grid:
-        for T_L in T_L_grid:
-            y_sim, _, _ = simulate_y(i, T_M, T_L)
-            L_days, rav_at_L = compute_life_days(i, y_sim)
-            if np.isinf(L_days):
-                L_years = 20.0  # 上限
-                retired = False
-            else:
-                L_years = L_days / 365.25
-                retired = True
-            # 成本
-            n_M = L_years * 365.25 / T_M
-            n_L = L_years * 365.25 / T_L if np.isfinite(T_L) else 0.0
-            cost_total = C_BUY + n_M * C_M + n_L * C_L
-            EAC = cost_total / L_years
-            row = dict(
-                i=i, T_M=T_M, T_L=T_L if np.isfinite(T_L) else 99999,
-                T_L_label="inf" if np.isinf(T_L) else str(int(T_L)),
-                L_days=int(L_days) if np.isfinite(L_days) else 99999,
-                L_years=round(L_years, 3),
-                retired=retired,
-                n_M=round(n_M, 2),
-                n_L=round(n_L, 2),
-                cost_total=round(cost_total, 2),
-                EAC=round(EAC, 3),
-            )
-            rows.append(row)
-            if EAC < best["EAC"]:
-                best = row.copy()
-    elapsed = time.time() - start_time
-    print(f"A{i:2d}: T_M*={best['T_M']}, T_L*={best['T_L_label']}, "
-          f"L={best['L_years']:.2f}y, EAC*={best['EAC']:.2f} 万元/年  "
-          f"(retired={best['retired']})  [{elapsed:.1f}s]")
+def run_grid_search():
+    # -------- 主循环 --------
+    start_time = time.time()
+    rows = []
+    for i in range(1, 11):
+        best = dict(EAC=np.inf)
+        for T_M in T_M_grid:
+            for T_L in T_L_grid:
+                y_sim, _, _ = simulate_y(i, T_M, T_L)
+                L_days, rav_at_L = compute_life_days(i, y_sim)
+                if np.isinf(L_days):
+                    L_years = 20.0  # 上限
+                    retired = False
+                else:
+                    L_years = L_days / 365.25
+                    retired = True
+                # 成本
+                n_M = L_years * 365.25 / T_M
+                n_L = L_years * 365.25 / T_L if np.isfinite(T_L) else 0.0
+                cost_total = C_BUY + n_M * C_M + n_L * C_L
+                EAC = cost_total / L_years
+                row = dict(
+                    i=i, T_M=T_M, T_L=T_L if np.isfinite(T_L) else 99999,
+                    T_L_label="inf" if np.isinf(T_L) else str(int(T_L)),
+                    L_days=int(L_days) if np.isfinite(L_days) else 99999,
+                    L_years=round(L_years, 3),
+                    retired=retired,
+                    n_M=round(n_M, 2),
+                    n_L=round(n_L, 2),
+                    cost_total=round(cost_total, 2),
+                    EAC=round(EAC, 3),
+                )
+                rows.append(row)
+                if EAC < best["EAC"]:
+                    best = row.copy()
+        elapsed = time.time() - start_time
+        print(f"A{i:2d}: T_M*={best['T_M']}, T_L*={best['T_L_label']}, "
+              f"L={best['L_years']:.2f}y, EAC*={best['EAC']:.2f} 万元/年  "
+              f"(retired={best['retired']})  [{elapsed:.1f}s]")
 
-grid = pd.DataFrame(rows)
-grid.to_csv(ROOT / "Q3输出/tables/eac_grid_all.csv", index=False)
-print(f"\nSaved Q3输出/tables/eac_grid_all.csv  ({len(grid)} rows)")
+    grid = pd.DataFrame(rows)
+    grid.to_csv(ROOT / "Q3输出/tables/eac_grid_all.csv", index=False)
+    print(f"\nSaved Q3输出/tables/eac_grid_all.csv  ({len(grid)} rows)")
 
-# -------- 每台最优 --------
-best_rows = []
-for i in range(1, 11):
-    sub = grid[grid["i"] == i]
-    best = sub.loc[sub["EAC"].idxmin()].to_dict()
-    best_rows.append(best)
-best_df = pd.DataFrame(best_rows)
-best_df.to_csv(ROOT / "Q3输出/tables/optimal_rule_per_filter.csv", index=False)
-print(f"\nOptimal rule per filter:")
-print(best_df[["i","T_M","T_L_label","L_years","retired","n_M","n_L","cost_total","EAC"]].to_string(index=False))
+    # -------- 每台最优 --------
+    best_rows = []
+    for i in range(1, 11):
+        sub = grid[grid["i"] == i]
+        best = sub.loc[sub["EAC"].idxmin()].to_dict()
+        best_rows.append(best)
+    best_df = pd.DataFrame(best_rows)
+    best_df.to_csv(ROOT / "Q3输出/tables/optimal_rule_per_filter.csv", index=False)
+    print(f"\nOptimal rule per filter:")
+    print(best_df[["i","T_M","T_L_label","L_years","retired","n_M","n_L","cost_total","EAC"]].to_string(index=False))
+
+
+if __name__ == "__main__":
+    run_grid_search()
