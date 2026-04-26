@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1777132403.49805 "main.xdv" "main.pdf" "main" 1777132404.83675 0
-  "main.xdv" 1777132403.446 216384 f476f3979a1a8463122a1d690a9330ad "xelatex"
+["xdvipdfmx"] 1777205210.12552 "main.xdv" "main.pdf" "main" 1777205211.55766 0
+  "main.xdv" 1777205210.0734 239920 126eebc678cdbd3a4b5010cd2e8574b4 "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1777132402.83182 "main.tex" "main.xdv" "main" 1777132404.83585 0
+["xelatex"] 1777205209.28112 "main.tex" "main.xdv" "main" 1777205211.55648 0
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -140,15 +140,16 @@
   "figures/fig4_trend_per_filter.png" 1777116594.46694 42074 3a73e905403242ceb45be5d873e715e0 ""
   "figures/fig_q2_life_bar.png" 1777132232.99428 50801 3a484d9830646a1625a423b0518ef72e ""
   "figures/fig_q2_rolling_avg.png" 1777132232.99494 168006 e72cf5005fbc774fef6e9580a2710aa8 ""
-  "figures/fig_q3_eac_comparison.png" 1777132232.99937 58038 4e8b657ebeeda4471d068834853aa09a ""
-  "figures/fig_q3_eac_heatmap.png" 1777132232.99991 276837 0585c1a6393a7ed3b62f53001997d1a9 ""
-  "figures/fig_q4_elasticity.png" 1777132233.0041 35113 7daaba509c58c6b6c2beb54aa1e73088 ""
-  "figures/fig_q4_joint_heatmap.png" 1777132233.00507 82941 a6935e15611b48df53ef0f3480b12694 ""
-  "figures/fig_q4_tornado.png" 1777132233.0055 37208 391bc18e8c7dc7124f58b665c1732dc3 ""
-  "main.aux" 1777132403.44512 10354 9f412e0662368f63567e6ee4e18e3a54 "xelatex"
-  "main.out" 1777132403.44578 5387 057fd534432d7465b0a0232c1dd4a352 "xelatex"
-  "main.tex" 1777132382.34675 28664 dec6a9f1007d44780f1e059e34bbfb6a ""
-  "main.toc" 1777132403.44596 3962 498bbeb8d3c2431865c2cee5be008436 "xelatex"
+  "figures/fig_q3_eac_comparison.png" 1777188218.88401 61861 56d6a56fdfc97aa4029069fb11bf1578 ""
+  "figures/fig_q3_eac_heatmap.png" 1777188218.8074 282123 646d1105366e7e0950877d1f008b7d0a ""
+  "figures/fig_q3_optimal_periods.png" 1777188218.93573 47798 61f2720cdb5bb04cbd37c03f676cc17c ""
+  "figures/fig_q4_elasticity.png" 1777202694.16906 35115 5d5843eb7f9b720810557ee8ba58af64 ""
+  "figures/fig_q4_joint_heatmap.png" 1777202694.17182 81472 34d034561f2b670ab2e7a94fed1799b6 ""
+  "figures/fig_q4_tornado.png" 1777202694.16628 36772 7c35d4eca62a422e462329539b9c8770 ""
+  "main.aux" 1777205210.07234 10792 ddde12331974f49bd146e2ba9107e027 "xelatex"
+  "main.out" 1777205210.07314 5540 430e0f4d2da1032260a15b4f427656d6 "xelatex"
+  "main.tex" 1777205191.7857 34498 e462a651be8b5d8e609780acb2260121 ""
+  "main.toc" 1777205210.07335 4063 e9839f88b05fdb214eeb61880a6a9e01 "xelatex"
   (generated)
   "main.aux"
   "main.log"

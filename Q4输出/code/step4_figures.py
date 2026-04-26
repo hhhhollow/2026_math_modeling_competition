@@ -1,6 +1,6 @@
 """
 Q4.4 图表生成
-  fig1: tornado chart 全队 EAC 对三个成本参数的敏感度
+  fig1: tornado chart 全部过滤器 EAC 对三个成本参数的敏感度
   fig2: per-filter EAC 弹性条形图
   fig3: c_buy × c_l 联合热力图
   fig4: EAC vs c_buy 曲线（10 台叠加）
@@ -40,8 +40,8 @@ ax.set_yticklabels(labels)
 for i, (lo, hi) in enumerate(zip(low_vals, high_vals)):
     ax.text(lo - 5, i, f"{lo:+.0f}", va="center", ha="right", fontsize=9)
     ax.text(hi + 5, i, f"{hi:+.0f}", va="center", ha="left", fontsize=9)
-ax.set_xlabel("Total fleet EAC change (10k CNY/yr)")
-ax.set_title(f"Q4  Tornado: fleet EAC sensitivity to ±30% cost shocks\n"
+ax.set_xlabel("All filters EAC change (10k CNY/yr)")
+ax.set_title(f"Q4  Tornado: all filters EAC sensitivity to ±30% cost shocks\n"
              f"baseline = {base_eac:.1f} 10k CNY/yr")
 ax.legend(loc="lower right")
 ax.grid(alpha=0.3, axis="x")
@@ -84,7 +84,7 @@ ax.set_yticks(range(len(levs_buy)))
 ax.set_yticklabels([f"{int(l*100):+d}%" for l in levs_buy])
 ax.set_xlabel("$c_l$ deviation from baseline (12 10k CNY)")
 ax.set_ylabel("$c_{buy}$ deviation from baseline (300 10k CNY)")
-ax.set_title("Q4  Total fleet EAC under joint cost shocks   ($c_m$=3 fixed)")
+ax.set_title("Q4  Total EAC of all filters under joint cost shocks   ($c_m$=3 fixed)")
 for r in range(len(levs_buy)):
     for c in range(len(levs_l)):
         v = mat[r, c]
