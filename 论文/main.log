@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.21)  26 APR 2026 09:55
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.21)  26 APR 2026 12:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -862,7 +862,7 @@ Package fontspec Info:
 (fontspec)             <->"[FandolFang-Regular.otf]/OT:script=hani;language=dflt;"
 
 
-Overfull \hbox (33.79945pt too wide) in paragraph at lines 204--219
+Overfull \hbox (33.79945pt too wide) in paragraph at lines 205--220
  [][] 
  []
 
@@ -875,48 +875,39 @@ File: figures/fig1_daily_series_outliers.png Graphic file (type bmp)
  [10]
 File: figures/fig4_trend_per_filter.png Graphic file (type bmp)
 <figures/fig4_trend_per_filter.png>
- [11]
-Overfull \hbox (61.74467pt too wide) in paragraph at lines 362--363
-\OMS/cmsy/m/n/12 f1\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 262\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 5\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 365\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 180\OMS/cmsy/m/n/12 g$ \TU/FandolSong-Regular(0)/m/n/12 四 种 情 形 做 敏 感 性 核 查  |（详 见 附 录 \TU/lmtt/m/n/12 Q2 \TU/FandolFang-Regular(0)/m/n/12 输 出\TU/lmtt/m/n/12 /code/step7_robust_TL_check.py\TU/FandolSong-Regular(0)/m/n/12 ） ：| 
- []
-
-[12]
-Overfull \hbox (37.82819pt too wide) in paragraph at lines 367--375
- [][] 
- []
-
+ [11] [12] [13]
 File: figures/fig_q2_life_bar.png Graphic file (type bmp)
 <figures/fig_q2_life_bar.png>
 File: figures/fig_q2_rolling_avg.png Graphic file (type bmp)
 <figures/fig_q2_rolling_avg.png>
-[13]
-Overfull \hbox (43.25714pt too wide) in paragraph at lines 450--451
+ [14]
+Overfull \hbox (43.25714pt too wide) in paragraph at lines 459--460
 []$\OML/cmm/m/it/12 T[] \OMS/cmsy/m/n/12 2 f\OT1/cmr/m/n/12 30\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 40\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 50\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 60\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 70\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 80\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 90\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 100\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 120\OMS/cmsy/m/n/12 g$ |\TU/FandolSong-Regular(0)/m/n/12 （\TU/lmr/m/n/12 9 \TU/FandolSong-Regular(0)/m/n/12 档） ，| $\OML/cmm/m/it/12 T[] \OMS/cmsy/m/n/12 2 f\OT1/cmr/m/n/12 120\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 180\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 240\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 300\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 360\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 450\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 540\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 720\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 1g$
  []
 
-[14]
 File: figures/fig_q3_eac_comparison.png Graphic file (type bmp)
 <figures/fig_q3_eac_comparison.png>
+[15]
 File: figures/fig_q3_eac_heatmap.png Graphic file (type bmp)
 <figures/fig_q3_eac_heatmap.png>
- [15] [16]
+ [16] [17]
 File: figures/fig_q4_tornado.png Graphic file (type bmp)
 <figures/fig_q4_tornado.png>
 File: figures/fig_q4_elasticity.png Graphic file (type bmp)
 <figures/fig_q4_elasticity.png>
- [17]
+ [18]
 File: figures/fig_q4_joint_heatmap.png Graphic file (type bmp)
 <figures/fig_q4_joint_heatmap.png>
- [18]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 613.
+ [19]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 622.
 
 
 LaTeX Font Warning: Font shape `TU/FandolFang-Regular(0)/m/it' undefined
-(Font)              using `TU/FandolFang-Regular(0)/m/n' instead on input line 614.
+(Font)              using `TU/FandolFang-Regular(0)/m/n' instead on input line 623.
 
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 619.
-[19] [20] (./main.aux)
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 628.
+[20] [21] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
@@ -926,15 +917,15 @@ L3 programming layer <2022/08/05>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 057FD534432D7465B0A0232C1DD4A352;5387.
+(rerunfilecheck)             Checksum: B8092F21A4780BF869B57501892623EA;5387.
  ) 
 Here is how much of TeX's memory you used:
- 21015 strings out of 468168
- 452393 string characters out of 5432815
+ 20979 strings out of 468168
+ 449753 string characters out of 5432815
  1180580 words of memory out of 5000000
- 49402 multiletter control sequences out of 15000+600000
+ 49366 multiletter control sequences out of 15000+600000
  646922 words of font info for 155 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,13n,112p,1224b,1273s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (20 pages).
+Output written on main.pdf (21 pages).

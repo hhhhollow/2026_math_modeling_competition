@@ -20,7 +20,7 @@ opt = pd.read_csv(ROOT / "Q3输出/tables/optimal_rule_per_filter.csv")
 C_BUY = 300.0
 C_M = 3.0
 C_L = 12.0
-L_CAP = 20.0  # 与 Q3 仿真地平线一致
+L_CAP = 12.0  # 与 Q3 仿真地平线一致 (覆盖正常退役最长 A2 11.57y)
 
 rows = []
 for i in range(1, 11):
