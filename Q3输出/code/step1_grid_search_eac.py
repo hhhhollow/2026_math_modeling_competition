@@ -12,8 +12,8 @@ EAC_i(T_M, T_L) = (c_buy + n_M * c_m + n_L * c_l) / L_years
   n_L   = L_years · 365.25 / T_L (若 T_L 有限，否则 n_L = 0)
 
 策略:
-  为避免长寿命过滤器无法给出 L，仿真地平线延长到 20 年 (H=7300)。
-  若 20 年内仍未退役，记 L = 20（上限），EAC 为保守估计（真实 EAC 更低）。
+  仿真地平线 12 年 (H=4383)，与正常退役设备最长寿命 (A2 最优 11.57y) 匹配。
+  若 12 年内仍未退役，记 L = 12（上限）— 不再继续摊薄异常台 (A4/A6) 购置成本。
 
 网格:
   T_M ∈ {30, 40, 50, 60, 70, 80, 90, 100, 120} (9)
@@ -39,7 +39,7 @@ anchor = hist["d"].min()  # 2024-04-03
 
 # -------- 仿真参数 --------
 start_future = pd.Timestamp("2026-01-20")
-H = 7300  # 20 年
+H = 4383  # 12 年 (覆盖正常退役设备最长寿命 A2 最优 11.57y)
 future_days = pd.date_range(start_future, periods=H, freq="D")
 n_future = len(future_days)
 T_year = 365.25
@@ -196,7 +196,7 @@ def run_grid_search():
                 y_sim, _, _ = simulate_y(i, T_M, T_L)
                 L_days, rav_at_L = compute_life_days(i, y_sim)
                 if np.isinf(L_days):
-                    L_years = 20.0  # 上限
+                    L_years = 12.0  # 上限
                     retired = False
                 else:
                     L_years = L_days / 365.25

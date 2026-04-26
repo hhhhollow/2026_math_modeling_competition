@@ -18,7 +18,7 @@ rule = pd.read_csv(ROOT / "Q2输出/tables/fixed_maintenance_rule.csv")
 C_BUY = 300.0
 C_M = 3.0
 C_L = 12.0
-L_CAP = 20.0
+L_CAP = 12.0  # 12 年地平线 (覆盖正常退役最长 A2 11.57y, 不再摊薄异常台 cost_buy)
 
 rows = []
 for _, r in rule.iterrows():
