@@ -58,7 +58,7 @@ print("Saved fig_q3_eac_heatmap.png")
 fig, ax = plt.subplots(figsize=(12, 5))
 x = np.arange(len(cmp))
 w = 0.35
-ax.bar(x - w/2, cmp["EAC_cur"], w, label="Current rule (Q2, 20y horizon)",
+ax.bar(x - w/2, cmp["EAC_cur"], w, label="Current rule (12y horizon)",
        color="#7f7f7f", edgecolor="k")
 ax.bar(x + w/2, cmp["EAC_opt"], w, label="Optimal rule (Q3)",
        color="#2ca02c", edgecolor="k")
@@ -74,7 +74,7 @@ ax.legend(loc="upper left")
 ax.grid(alpha=0.3, axis="y")
 # 底部加 A4/A6 警示
 ax.text(0.02, -0.15, "⚠ A4 / A6 have positive historical β — their 'no-retirement' is extrapolation artifact; "
-                    "EAC values are lower bounds under the 20-year horizon.",
+                    "EAC values are upper bounds (cost / 12y cap) for non-retiring filters.",
         transform=ax.transAxes, fontsize=8, color="darkred", style="italic")
 fig.tight_layout()
 fig.savefig(ROOT / "Q3输出/figures/fig_q3_eac_comparison.png", dpi=130,

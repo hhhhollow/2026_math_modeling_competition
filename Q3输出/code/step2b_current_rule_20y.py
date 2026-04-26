@@ -1,7 +1,9 @@
 """
-Q3.3b  用 20 年地平线重新评估"当前规律"的真实寿命和 EAC
-  (Q2 只跑了 10 年，对"不退役"的 5 台给出 L=inf → 截断 10y 导致 EAC 低估)
-  本步把 10 台都在 20 年地平线下重新模拟，直接对比 Q3 最优方案
+Q3.3b  用 12 年地平线重新评估"当前规律"的真实寿命和 EAC
+  (Q2 只跑了 10 年；对"不退役"的台用 12y 上限截断；与 Q3 最优方案直接对比)
+  本步把 10 台都在 12 年地平线下重新模拟，直接对比 Q3 最优方案
+
+  注：脚本文件名仍为 step2b_current_rule_20y.py（保留兼容），但实际地平线为 12 年。
 """
 import sys
 import pandas as pd
@@ -58,7 +60,7 @@ for _, r in rule.iterrows():
     ))
 
 df = pd.DataFrame(rows)
-print("当前规律在 20 年地平线下的重新评估:")
+print("当前规律在 12 年地平线下的重新评估:")
 print(df.to_string(index=False))
-df.to_csv(ROOT / "Q3输出/tables/current_rule_20y.csv", index=False)
-print("\nSaved Q3输出/tables/current_rule_20y.csv")
+df.to_csv(ROOT / "Q3输出/tables/current_rule_20y.csv", index=False)  # 文件名保留兼容
+print("\nSaved Q3输出/tables/current_rule_20y.csv  (实际地平线 12 年)")

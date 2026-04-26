@@ -22,7 +22,7 @@ anchor = hist["d"].min()
 
 # -------- 未来仿真时间轴 --------
 start_future = pd.Timestamp("2026-01-20")
-H = 7300  # 20 年
+H = 4383  # 12 年 (与 Q3 地平线一致)
 future_days = pd.date_range(start_future, periods=H, freq="D")
 n_future = len(future_days)
 T_year = 365.25
