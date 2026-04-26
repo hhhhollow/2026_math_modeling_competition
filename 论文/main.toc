@@ -1,47 +1,48 @@
-\contentsline {section}{摘要}{1}{section*.1}%
-\contentsline {section}{\numberline {1}问题重述与分析}{5}{section.1}%
-\contentsline {subsection}{\numberline {1.1}问题背景与数据}{5}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}四个子问题}{5}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}总体求解框架}{5}{subsection.1.3}%
-\contentsline {section}{\numberline {2}模型假设}{5}{section.2}%
-\contentsline {section}{\numberline {3}符号说明}{6}{section.3}%
-\contentsline {subsection}{\numberline {3.1}模型符号与代码变量对照}{6}{subsection.3.1}%
-\contentsline {section}{\numberline {4}数据预处理}{7}{section.4}%
-\contentsline {subsection}{\numberline {4.1}日聚合}{7}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}异常值剔除}{7}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}维护事件指标构造}{8}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Q1 模型建立与求解}{8}{section.5}%
-\contentsline {subsection}{\numberline {5.1}固定效应回归模型}{8}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}OLS 求解结果}{9}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}核心衍生指标}{9}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}A4 / A6 异常上升说明}{10}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Q1 主要图表}{11}{subsection.5.5}%
-\contentsline {section}{\numberline {6}Q2 模型建立与求解}{12}{section.6}%
-\contentsline {subsection}{\numberline {6.1}当前固定维护规律}{12}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}累积维护项的 CV 选参}{12}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}线性 vs 指数衰减比较}{12}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}A4 / A8 大维护策略的稳健性核查}{13}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}向前 10 年仿真与寿命判定}{13}{subsection.6.5}%
-\contentsline {subsection}{\numberline {6.6}10 台寿命预测结果}{14}{subsection.6.6}%
-\contentsline {section}{\numberline {7}Q3 模型建立与求解}{14}{section.7}%
-\contentsline {subsection}{\numberline {7.1}优化目标：等值年化成本（EAC）}{14}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}决策变量与约束}{15}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}求解方法：网格搜索}{15}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}10 台最优维护方案}{15}{subsection.7.4}%
-\contentsline {subsection}{\numberline {7.5}当前规律 vs 最优规律对比}{16}{subsection.7.5}%
+\contentsline {section}{摘要}{1}{Doc-Start}%
+\contentsline {section}{\numberline {1}问题重述与分析}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}问题背景与数据}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}四个子问题}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}总体求解框架}{4}{subsection.1.3}%
+\contentsline {section}{\numberline {2}模型假设}{4}{section.2}%
+\contentsline {section}{\numberline {3}符号说明}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}模型符号与代码变量对照}{5}{subsection.3.1}%
+\contentsline {section}{\numberline {4}数据预处理}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}日聚合}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}异常值剔除}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}维护事件指标构造}{7}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Q1 模型建立与求解}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}固定效应回归模型}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}OLS 求解结果}{8}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}核心衍生指标}{8}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}A4 / A6 异常上升说明}{9}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Q1 主要图表}{10}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Q2 模型建立与求解}{11}{section.6}%
+\contentsline {subsection}{\numberline {6.1}当前固定维护规律}{11}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}累积维护项的 CV 选参}{11}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}线性 vs 指数衰减比较}{11}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}A4 / A8 大维护策略的稳健性核查}{12}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}向前 10 年仿真与寿命判定}{12}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}10 台寿命预测结果}{13}{subsection.6.6}%
+\contentsline {section}{\numberline {7}Q3 模型建立与求解}{13}{section.7}%
+\contentsline {subsection}{\numberline {7.1}优化目标：等值年化成本（EAC）}{13}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}决策变量与搜索网格}{14}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}仿真地平线与截断口径}{14}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}求解方法：网格搜索}{15}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}10 台最优维护方案}{15}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}当前规律 vs 最优规律对比}{16}{subsection.7.6}%
 \contentsline {section}{\numberline {8}Q4 模型建立与求解}{18}{section.8}%
 \contentsline {subsection}{\numberline {8.1}敏感性分析设计}{18}{subsection.8.1}%
 \contentsline {subsection}{\numberline {8.2}加速计算}{18}{subsection.8.2}%
 \contentsline {subsection}{\numberline {8.3}弹性分析}{18}{subsection.8.3}%
-\contentsline {subsection}{\numberline {8.4}方案稳健性}{18}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.4}方案稳健性}{19}{subsection.8.4}%
 \contentsline {subsection}{\numberline {8.5}联合敏感性与极端场景}{19}{subsection.8.5}%
-\contentsline {section}{\numberline {9}模型评价与改进}{19}{section.9}%
-\contentsline {subsection}{\numberline {9.1}优点}{19}{subsection.9.1}%
+\contentsline {section}{\numberline {9}模型评价与改进}{20}{section.9}%
+\contentsline {subsection}{\numberline {9.1}优点}{20}{subsection.9.1}%
 \contentsline {subsection}{\numberline {9.2}缺点}{20}{subsection.9.2}%
 \contentsline {subsection}{\numberline {9.3}改进方向}{20}{subsection.9.3}%
-\contentsline {section}{\numberline {A}Q1 OLS 系数完整列表}{20}{appendix.A}%
-\contentsline {section}{\numberline {B}核心代码片段}{20}{appendix.B}%
-\contentsline {subsection}{\numberline {B.1}Q1 主回归}{20}{subsection.B.1}%
+\contentsline {section}{\numberline {A}Q1 OLS 系数完整列表}{21}{appendix.A}%
+\contentsline {section}{\numberline {B}核心代码片段}{21}{appendix.B}%
+\contentsline {subsection}{\numberline {B.1}Q1 主回归}{21}{subsection.B.1}%
 \contentsline {subsection}{\numberline {B.2}Q3 网格搜索}{21}{subsection.B.2}%
 \contentsline {subsection}{\numberline {B.3}Q4 加速重计算}{21}{subsection.B.3}%
-\contentsline {section}{\numberline {C}完整数据文件清单}{21}{appendix.C}%
+\contentsline {section}{\numberline {C}完整数据文件清单}{22}{appendix.C}%

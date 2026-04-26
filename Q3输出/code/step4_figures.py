@@ -10,8 +10,21 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pathlib import Path
+import shutil
 
 ROOT = Path(__file__).resolve().parents[2]  # 项目根目录(2026_math_modeling_competition)
+FIG_DIR = ROOT / "Q3输出/figures"
+PAPER_FIG_DIR = ROOT / "论文/figures"
+FIG_DIR.mkdir(parents=True, exist_ok=True)
+PAPER_FIG_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def save_and_sync(fig, filename, **kwargs):
+    """Save a Q3 figure and keep the paper figure copy in sync."""
+    out = FIG_DIR / filename
+    fig.savefig(out, **kwargs)
+    shutil.copy2(out, PAPER_FIG_DIR / filename)
+    print(f"Saved {filename} and synced to 论文/figures")
 
 grid = pd.read_csv(ROOT / "Q3输出/tables/eac_grid_all.csv")
 cmp = pd.read_csv(ROOT / "Q3输出/tables/comparison_fair.csv")
@@ -29,7 +42,7 @@ for ax, i in zip(axes.ravel(), range(1, 11)):
     mat = sub.pivot_table(index="T_M", columns="T_L", values="EAC").reindex(
         index=T_M_vals, columns=T_L_raw)
     im = ax.imshow(mat.values, aspect="auto", origin="lower",
-                   cmap="RdYlGn_r", vmin=20, vmax=320)
+                   cmap="RdYlGn_r", vmin=0, vmax=320)
     ax.set_xticks(range(len(T_L_raw))); ax.set_xticklabels(T_L_labels, fontsize=7)
     ax.set_yticks(range(len(T_M_vals))); ax.set_yticklabels(T_M_vals, fontsize=7)
     # 标出最优点
@@ -47,12 +60,11 @@ for ax, i in zip(axes.ravel(), range(1, 11)):
             v = mat.iloc[r, c]
             ax.text(c, r, f"{v:.0f}", ha="center", va="center",
                     fontsize=6, color="white" if v > 150 else "black")
-fig.suptitle("Q3  EAC heatmap (unit: 10k CNY/yr)   * = optimal",
+fig.suptitle("Q3  EAC heatmap (12y horizon; unit: 10k CNY/yr)   * = optimal",
              fontsize=13, y=0.998)
 fig.tight_layout(rect=[0, 0, 1, 0.98])
-fig.savefig(ROOT / "Q3输出/figures/fig_q3_eac_heatmap.png", dpi=110)
+save_and_sync(fig, "fig_q3_eac_heatmap.png", dpi=110)
 plt.close(fig)
-print("Saved fig_q3_eac_heatmap.png")
 
 # ======= FIG 2: 当前 vs 最优 EAC 条形对比 =======
 fig, ax = plt.subplots(figsize=(12, 5))
@@ -60,7 +72,7 @@ x = np.arange(len(cmp))
 w = 0.35
 ax.bar(x - w/2, cmp["EAC_cur"], w, label="Current rule (12y horizon)",
        color="#7f7f7f", edgecolor="k")
-ax.bar(x + w/2, cmp["EAC_opt"], w, label="Optimal rule (Q3)",
+ax.bar(x + w/2, cmp["EAC_opt"], w, label="Optimal rule (12y horizon)",
        color="#2ca02c", edgecolor="k")
 for xi, (cur, opt_v, pct) in enumerate(zip(cmp["EAC_cur"], cmp["EAC_opt"], cmp["save_pct"])):
     color = "darkgreen" if pct > 0 else "darkred"
@@ -69,7 +81,7 @@ for xi, (cur, opt_v, pct) in enumerate(zip(cmp["EAC_cur"], cmp["EAC_opt"], cmp["
 ax.set_xticks(x)
 ax.set_xticklabels([f"A{i}" for i in cmp["i"]])
 ax.set_ylabel("EAC (10k CNY/yr)")
-ax.set_title("Q3  Current vs Optimal maintenance rule — annual equivalent cost")
+ax.set_title("Q3  Current vs Optimal maintenance rule (12y horizon) — annual equivalent cost")
 ax.legend(loc="upper left")
 ax.grid(alpha=0.3, axis="y")
 # 底部加 A4/A6 警示
@@ -77,10 +89,9 @@ ax.text(0.02, -0.15, "⚠ A4 / A6 have positive historical β — their 'no-reti
                     "EAC values are upper bounds (cost / 12y cap) for non-retiring filters.",
         transform=ax.transAxes, fontsize=8, color="darkred", style="italic")
 fig.tight_layout()
-fig.savefig(ROOT / "Q3输出/figures/fig_q3_eac_comparison.png", dpi=130,
-            bbox_inches="tight")
+save_and_sync(fig, "fig_q3_eac_comparison.png", dpi=130,
+              bbox_inches="tight")
 plt.close(fig)
-print("Saved fig_q3_eac_comparison.png")
 
 # ======= FIG 3: 最优 (T_M*, T_L*) 规划图 =======
 fig, ax = plt.subplots(figsize=(11, 5))
@@ -106,11 +117,10 @@ for xi, (tm, tl_v, infl) in enumerate(zip(opt["T_M"], T_L_plot, tl_is_inf)):
             ha="center", fontsize=8, color="darkred" if infl else "black")
 ax.set_xticks(x); ax.set_xticklabels([f"A{i}" for i in i_order])
 ax.set_ylabel("days")
-ax.set_title("Q3  Optimal maintenance periods   (T_L='inf' plotted at 800 for display)")
+ax.set_title("Q3  Optimal maintenance periods (12y horizon; T_L='inf' plotted at 800 for display)")
 ax.legend(loc="upper right")
 ax.grid(alpha=0.3, axis="y")
 ax.set_ylim(0, 900)
 fig.tight_layout()
-fig.savefig(ROOT / "Q3输出/figures/fig_q3_optimal_periods.png", dpi=130)
+save_and_sync(fig, "fig_q3_optimal_periods.png", dpi=130)
 plt.close(fig)
-print("Saved fig_q3_optimal_periods.png")
