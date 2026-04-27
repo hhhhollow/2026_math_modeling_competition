@@ -38,11 +38,11 @@
 \contentsline {subsection}{\numberline {8.5}联合敏感性与极端场景}{19}{subsection.8.5}%
 \contentsline {section}{\numberline {9}模型评价与改进}{20}{section.9}%
 \contentsline {subsection}{\numberline {9.1}优点}{20}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}缺点}{20}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}改进方向}{20}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.2}缺点}{21}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}改进方向}{21}{subsection.9.3}%
 \contentsline {section}{\numberline {A}Q1 OLS 系数完整列表}{21}{appendix.A}%
 \contentsline {section}{\numberline {B}核心代码片段}{21}{appendix.B}%
 \contentsline {subsection}{\numberline {B.1}Q1 主回归}{21}{subsection.B.1}%
-\contentsline {subsection}{\numberline {B.2}Q3 网格搜索}{21}{subsection.B.2}%
-\contentsline {subsection}{\numberline {B.3}Q4 加速重计算}{21}{subsection.B.3}%
+\contentsline {subsection}{\numberline {B.2}Q3 网格搜索}{22}{subsection.B.2}%
+\contentsline {subsection}{\numberline {B.3}Q4 加速重计算}{22}{subsection.B.3}%
 \contentsline {section}{\numberline {C}完整数据文件清单}{22}{appendix.C}%

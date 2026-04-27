@@ -102,7 +102,7 @@
 \[
 y_{i,d} = \alpha_i + \beta_i t + \gamma_1 \sin\tfrac{2\pi t}{T} + \gamma_2 \cos\tfrac{2\pi t}{T} + \delta_m H^{m,7}_{i,d} + \delta_l H^{l,7}_{i,d} + \rho_m \tilde{A}^m_{i,d} + \rho_l \tilde{A}^l_{i,d} + \eta_m \mathbf{1}_i^m + \eta_l \mathbf{1}_i^l + \varepsilon_{i,d}
 \]
-共 28 个参数（10 截距 + 10 时间斜率 + 2 季节 + 4 维护脉冲与衰减 + 2 启动哑变量），OLS 拟合训练 $R^2 = 0.838$。提取 5 个核心衍生指标：日中位数 $y_{i,d}$、季节性 sin/cos 项、维护后短期改善 $R^{q,7}$（其中 $\theta = 4.33$ 为大维护改善的 10\% 分位）、自然衰减斜率 $\beta_i$、距上次维护天数 $\tilde{A}^q$。
+共 28 个参数（10 截距 + 10 时间斜率 + 2 季节 + 4 维护脉冲与衰减 + 2 启动哑变量），OLS 全样本拟合 $R^2 = 0.838$。提取 5 个核心衍生指标：日中位数 $y_{i,d}$、季节性 sin/cos 项、维护后短期改善 $R^{q,7}$（其中 $\theta = 4.33$ 为大维护改善的 10\% 分位）、自然衰减斜率 $\beta_i$、距上次维护天数 $\tilde{A}^q$。
 
 \medskip
 \noindent
@@ -255,9 +255,20 @@ $\eta_l \mathbf{1}_i^l$ & \texttt{has\_l} & 历史是否做过大维护 \\
 H_{i,d}^{q,w} &= \max_{\tau \in \mathcal{T}_i^q} \mathbf{1}\{\tau < d \le \tau + w\}, \quad w = 7, \\
 A_{i,d}^q &= d - \max\{\tau \mid \tau \in \mathcal{T}_i^q,\ \tau \le d\}, \\
 \mathbf{1}_i^q &= \mathbf{1}\{\mathcal{T}_i^q \cap \{1, \dots, d\} \neq \emptyset\}, \\
-\tilde{A}_{i,d}^q &= \mathbf{1}_i^q \cdot A_{i,d}^q, \\
-R_{i,k}^{q,7} &= \frac{1}{7}\sum_{d=\tau_k+1}^{\tau_k+7} y_{i,d} - \frac{1}{7}\sum_{d=\tau_k-7}^{\tau_k-1} y_{i,d}.
+\tilde{A}_{i,d}^q &= \mathbf{1}_i^q \cdot A_{i,d}^q.
 \end{align}
+维护改善量按维护日前后 7 日窗口内的有效日观测均值计算。记
+\[
+\mathcal{D}_{i,k}^{+} = \{d \in [\tau_k+1,\tau_k+7] \mid y_{i,d}\ \text{有效}\},\quad
+\mathcal{D}_{i,k}^{-} = \{d \in [\tau_k-7,\tau_k-1] \mid y_{i,d}\ \text{有效}\},
+\]
+则
+\[
+R_{i,k}^{q,7}
+= \frac{1}{|\mathcal{D}_{i,k}^{+}|}\sum_{d\in\mathcal{D}_{i,k}^{+}} y_{i,d}
+- \frac{1}{|\mathcal{D}_{i,k}^{-}|}\sum_{d\in\mathcal{D}_{i,k}^{-}} y_{i,d}.
+\]
+实际计算中要求 $|\mathcal{D}_{i,k}^{+}| \ge 3$ 且 $|\mathcal{D}_{i,k}^{-}| \ge 3$，否则该维护事件不参与 $R^{q,7}$ 汇总。
 
 大维护无效阈值由全部大维护事件的 7 日改善量下侧分位给出：
 \[
@@ -579,6 +590,8 @@ $c_l$            & 0.0637 & 1215.57 & 1241.59 & 1263.30 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\noindent\textit{说明}：Q3 最优 EAC 合计为 1241.66 万元/年，而本节基准值为 1241.59 万元/年，二者相差 0.07 万元/年，来自中间 CSV 中寿命与维护次数列保留位数后在 Q4 重新计算 EAC 的舍入误差，不影响弹性排序与方案稳健性结论。
 
 \begin{figure}[H]
 \centering
