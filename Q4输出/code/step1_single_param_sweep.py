@@ -26,7 +26,8 @@ levels = np.array([-30, -20, -10, 0, 10, 20, 30]) / 100  # 7
 
 def best_per_filter(c_buy, c_m, c_l):
     g = grid.copy()
-    g["EAC_new"] = (c_buy + g["n_M"]*c_m + g["n_L"]*c_l) / g["L_years"]
+    # N_M / N_L 为寿命内总次数（与论文符号一致）
+    g["EAC_new"] = (c_buy + g["N_M"]*c_m + g["N_L"]*c_l) / g["L_years"]
     rows = []
     for i in range(1, 11):
         sub = g[g.i == i]

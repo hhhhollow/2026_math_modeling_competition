@@ -55,7 +55,7 @@ daily["is_outlier"] = ((daily["y"] < daily["lo_iqr"]) | (daily["y"] > daily["hi_
 
 # ---------- 作图（每台一幅） ----------
 # 先载入维护事件用于竖线
-mnt = pd.read_excel(PROJECT_ROOT / "A题" / "附件2.xlsx",
+mnt = pd.read_excel(PROJECT_ROOT / "题目" / "附件2.xlsx",
                     sheet_name=0, engine="openpyxl")
 mnt.columns = [c.strip() for c in mnt.columns]
 mnt = mnt.rename(columns={"编号": "id_str", "日期": "d", "维护类型": "q"})

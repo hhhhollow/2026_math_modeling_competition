@@ -47,9 +47,10 @@ for i in range(1, 11):
         L_cur_y = float(L_cur_y_raw)
         retired_cur = True
 
-    n_M_cur = L_cur_y * 365.25 / T_M_cur
-    n_L_cur = L_cur_y * 365.25 / T_L_cur if np.isfinite(T_L_cur) else 0.0
-    cost_cur = C_BUY + n_M_cur * C_M + n_L_cur * C_L
+    # N_M_cur / N_L_cur 为寿命内总次数（与论文符号 N_M, N_L 对齐）
+    N_M_cur = L_cur_y * 365.25 / T_M_cur
+    N_L_cur = L_cur_y * 365.25 / T_L_cur if np.isfinite(T_L_cur) else 0.0
+    cost_cur = C_BUY + N_M_cur * C_M + N_L_cur * C_L
     EAC_cur = cost_cur / L_cur_y
 
     # 最优
@@ -59,8 +60,8 @@ for i in range(1, 11):
     L_opt_y = op["L_years"]
     EAC_opt = op["EAC"]
     cost_opt = op["cost_total"]
-    n_M_opt = op["n_M"]
-    n_L_opt = op["n_L"]
+    N_M_opt = op["N_M"]  # 寿命内中维护总次数
+    N_L_opt = op["N_L"]  # 寿命内大维护总次数
     retired_opt = bool(op["retired"])
 
     # 节省
@@ -73,16 +74,16 @@ for i in range(1, 11):
         T_L_cur=("inf" if np.isinf(T_L_cur) else f"{T_L_cur:g}"),
         L_cur_years=round(L_cur_y, 2),
         retired_cur=retired_cur,
-        n_M_cur=round(n_M_cur, 1),
-        n_L_cur=round(n_L_cur, 1),
+        N_M_cur=round(N_M_cur, 1),
+        N_L_cur=round(N_L_cur, 1),
         cost_cur=round(cost_cur, 1),
         EAC_cur=round(EAC_cur, 2),
         T_M_opt=int(T_M_opt),
         T_L_opt=T_L_opt_lbl,
         L_opt_years=round(L_opt_y, 2),
         retired_opt=retired_opt,
-        n_M_opt=round(n_M_opt, 1),
-        n_L_opt=round(n_L_opt, 1),
+        N_M_opt=round(N_M_opt, 1),
+        N_L_opt=round(N_L_opt, 1),
         cost_opt=round(cost_opt, 1),
         EAC_opt=round(EAC_opt, 2),
         save_abs=round(save_abs, 2),

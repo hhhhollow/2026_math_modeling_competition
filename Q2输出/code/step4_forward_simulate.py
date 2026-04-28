@@ -39,17 +39,21 @@ T_year = 365.25
 
 def simulate_filter(i, T_M, T_L, seed=0):
     """返回 DataFrame (d, y_sim, u_m, u_l, H_m7, H_l7, A_m, A_l)"""
-    # 过去的维护
-    past = mnt[mnt["i"] == i].sort_values("d")
+    # 过去的维护：严格按预测起点 start_future 切断，避免使用未来真实维护事件
+    # （附件 2 含 2026-01-20 至 2026-04-05 共 20 条维护，时间口径与 y 数据
+    #  截止 2026-01-19 不一致，原版会把这些当作"已知历史"造成信息泄漏）
+    past = mnt[(mnt["i"] == i) & (mnt["d"] < start_future)].sort_values("d")
     past_m = past[past["q"] == "m"]["d"].tolist()
     past_l = past[past["q"] == "l"]["d"].tolist()
 
-    # 生成未来维护日程：从上次中维护日期 + T_M 开始
+    # 生成未来维护日程：从上次中维护日期 + T_M 开始，跳过 < start_future 的过期排程
     last_m = past_m[-1] if past_m else anchor
     last_l = past_l[-1] if past_l else None
 
     future_m = []
     nxt = last_m + pd.Timedelta(days=int(round(T_M)))
+    while nxt < start_future:  # 跳过 start_future 之前的过期排程
+        nxt += pd.Timedelta(days=int(round(T_M)))
     while nxt < future_days[-1]:
         future_m.append(nxt)
         nxt += pd.Timedelta(days=int(round(T_M)))
@@ -58,6 +62,8 @@ def simulate_filter(i, T_M, T_L, seed=0):
     if np.isfinite(T_L):
         base_l = last_l if last_l is not None else last_m
         nxt = base_l + pd.Timedelta(days=int(round(T_L)))
+        while nxt < start_future:  # 跳过过期排程
+            nxt += pd.Timedelta(days=int(round(T_L)))
         while nxt < future_days[-1]:
             future_l.append(nxt)
             nxt += pd.Timedelta(days=int(round(T_L)))

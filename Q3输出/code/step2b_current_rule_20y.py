@@ -43,9 +43,10 @@ for _, r in rule.iterrows():
         L_years = L_days / 365.25
         retired = True
 
-    n_M = L_years * 365.25 / T_M
-    n_L = L_years * 365.25 / T_L if np.isfinite(T_L) else 0.0
-    cost_total = C_BUY + n_M * C_M + n_L * C_L
+    # N_M / N_L 为寿命内总次数（与论文符号一致）
+    N_M = L_years * 365.25 / T_M
+    N_L = L_years * 365.25 / T_L if np.isfinite(T_L) else 0.0
+    cost_total = C_BUY + N_M * C_M + N_L * C_L
     EAC = cost_total / L_years
 
     rows.append(dict(
@@ -53,8 +54,8 @@ for _, r in rule.iterrows():
         T_L=("inf" if np.isinf(T_L) else f"{T_L:g}"),
         L_years_20h=round(L_years, 3),
         retired_20h=retired,
-        n_M=round(n_M, 2),
-        n_L=round(n_L, 2),
+        N_M=round(N_M, 2),  # 寿命内中维护总次数
+        N_L=round(N_L, 2),  # 寿命内大维护总次数
         cost_total=round(cost_total, 2),
         EAC=round(EAC, 2),
     ))

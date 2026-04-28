@@ -13,7 +13,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 ROOT = PROJECT_ROOT / "Q1输出"
 
 # ---------- 维护事件 ----------
-mnt = pd.read_excel(PROJECT_ROOT / "A题" / "附件2.xlsx",
+mnt = pd.read_excel(PROJECT_ROOT / "题目" / "附件2.xlsx",
                     sheet_name=0, engine="openpyxl")
 mnt.columns = [c.strip() for c in mnt.columns]
 mnt = mnt.rename(columns={"编号": "id_str", "日期": "d", "维护类型": "q"})

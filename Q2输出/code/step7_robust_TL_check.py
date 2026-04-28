@@ -60,7 +60,8 @@ def A_from_dates(dates):
 
 def simulate_y(i, T_M, T_L):
     """给定设备 i 和维护周期 (T_M, T_L)，模拟未来透水率序列。"""
-    past = mnt[mnt["i"] == i].sort_values("d")
+    # 严格按预测起点 start_future 切断历史维护，避免使用未来真实维护事件
+    past = mnt[(mnt["i"] == i) & (mnt["d"] < start_future)].sort_values("d")
     past_m = past[past["q"] == "m"]["d"].tolist()
     past_l = past[past["q"] == "l"]["d"].tolist()
 
@@ -69,6 +70,8 @@ def simulate_y(i, T_M, T_L):
 
     future_m = []
     nxt = last_m + pd.Timedelta(days=int(round(T_M)))
+    while nxt < start_future:  # 跳过过期排程
+        nxt += pd.Timedelta(days=int(round(T_M)))
     while nxt <= future_days[-1]:
         future_m.append(nxt)
         nxt += pd.Timedelta(days=int(round(T_M)))
@@ -77,6 +80,8 @@ def simulate_y(i, T_M, T_L):
     if np.isfinite(T_L):
         base_l = last_l if last_l is not None else last_m
         nxt = base_l + pd.Timedelta(days=int(round(T_L)))
+        while nxt < start_future:  # 跳过过期排程
+            nxt += pd.Timedelta(days=int(round(T_L)))
         while nxt <= future_days[-1]:
             future_l.append(nxt)
             nxt += pd.Timedelta(days=int(round(T_L)))

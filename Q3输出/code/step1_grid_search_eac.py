@@ -1,18 +1,21 @@
 """
 Q3.1 + Q3.2  网格搜索：每台过滤器最小 EAC 的 (T_M, T_L)
 
-EAC_i(T_M, T_L) = (c_buy + n_M * c_m + n_L * c_l) / L_years
+EAC_i(T_M, T_L) = (c_buy + N_M * c_m + N_L * c_l) / L_years
 
 其中:
   c_buy = 300 万元 (新购)
   c_m   =   3 万元 (中维护)
   c_l   =  12 万元 (大维护)
   L_years = 寿命（从 2026-01-20 起到滚动 365 日均值首次 < 37）
-  n_M   = L_years · 365.25 / T_M (整个寿命内中维护次数)
-  n_L   = L_years · 365.25 / T_L (若 T_L 有限，否则 n_L = 0)
+  N_M   = L_years · 365.25 / T_M (整个寿命内中维护总次数)
+  N_L   = L_years · 365.25 / T_L (若 T_L 有限，否则 N_L = 0)
+  注：与论文 §3 符号表对齐——大写 N_M / N_L 表示"寿命内总次数"，
+       小写 n_M / n_L = 365.25 / T 表示"每年频次"。早期版本 csv 误用
+       小写命名表示总次数，本版统一改为大写 N_M / N_L。
 
 策略:
-  仿真地平线 12 年 (H=4383)，与正常退役设备最长寿命 (A2 最优 11.57y) 匹配。
+  仿真地平线 12 年 (H=4383)，与正常退役设备最长寿命 (A2 最优 11.47y) 匹配。
   若 12 年内仍未退役，记 L = 12（上限）— 不再继续摊薄异常台 (A4/A6) 购置成本。
 
 网格:
@@ -90,7 +93,8 @@ def A_from_dates(dates):
 
 def simulate_y(i, T_M, T_L):
     """给定 (i, T_M, T_L)，返回 n_future 长 y_sim 数组"""
-    past = mnt[mnt["i"] == i].sort_values("d")
+    # 严格按预测起点 start_future 切断历史维护，避免使用未来真实维护事件
+    past = mnt[(mnt["i"] == i) & (mnt["d"] < start_future)].sort_values("d")
     past_m = past[past["q"] == "m"]["d"].tolist()
     past_l = past[past["q"] == "l"]["d"].tolist()
 
@@ -99,6 +103,8 @@ def simulate_y(i, T_M, T_L):
 
     future_m = []
     nxt = last_m + pd.Timedelta(days=int(round(T_M)))
+    while nxt < start_future:  # 跳过过期排程
+        nxt += pd.Timedelta(days=int(round(T_M)))
     while nxt <= future_days[-1]:
         future_m.append(nxt)
         nxt += pd.Timedelta(days=int(round(T_M)))
@@ -107,6 +113,8 @@ def simulate_y(i, T_M, T_L):
     if np.isfinite(T_L):
         base_l = last_l if last_l is not None else last_m  # 若无大维护，从上次中维护起步
         nxt = base_l + pd.Timedelta(days=int(round(T_L)))
+        while nxt < start_future:  # 跳过过期排程
+            nxt += pd.Timedelta(days=int(round(T_L)))
         while nxt <= future_days[-1]:
             future_l.append(nxt)
             nxt += pd.Timedelta(days=int(round(T_L)))
@@ -151,7 +159,14 @@ def simulate_y(i, T_M, T_L):
     return y, len(future_m), len(future_l)
 
 def compute_life_days(i, y_sim):
-    """用历史观测 + 未来模拟拼接后的序列做滚动 365d 均值，返回寿命（天）"""
+    """用历史观测 + 未来模拟拼接后的序列做滚动 365d 均值，返回寿命（天）。
+
+    说明：论文 §6.4 寿命定义为双条件
+        L = min{d : ȳ(d) < 37 AND Δ^l(d) < θ}
+    其中 θ = 4.33（大维护改善 10% 分位）。Q2 step5 按保守近似取
+    Δ^l ≈ δ_l = 2.25 < θ，恒成立；故此处省略 θ 判据，仅判 ȳ < 37。
+    结果与显式执行双条件完全一致。
+    """
     # 拼接历史 y 和未来 y_sim
     h_sub = hist[hist["i"] == i][["d","y"]].dropna().sort_values("d")
     h_days = h_sub["d"].values
@@ -201,10 +216,10 @@ def run_grid_search():
                 else:
                     L_years = L_days / 365.25
                     retired = True
-                # 成本
-                n_M = L_years * 365.25 / T_M
-                n_L = L_years * 365.25 / T_L if np.isfinite(T_L) else 0.0
-                cost_total = C_BUY + n_M * C_M + n_L * C_L
+                # 成本（N_M/N_L 为寿命内总次数，与论文符号一致）
+                N_M = L_years * 365.25 / T_M
+                N_L = L_years * 365.25 / T_L if np.isfinite(T_L) else 0.0
+                cost_total = C_BUY + N_M * C_M + N_L * C_L
                 EAC = cost_total / L_years
                 row = dict(
                     i=i, T_M=T_M, T_L=T_L if np.isfinite(T_L) else 99999,
@@ -212,8 +227,8 @@ def run_grid_search():
                     L_days=int(L_days) if np.isfinite(L_days) else 99999,
                     L_years=round(L_years, 3),
                     retired=retired,
-                    n_M=round(n_M, 2),
-                    n_L=round(n_L, 2),
+                    N_M=round(N_M, 2),  # 寿命内中维护总次数
+                    N_L=round(N_L, 2),  # 寿命内大维护总次数
                     cost_total=round(cost_total, 2),
                     EAC=round(EAC, 3),
                 )
@@ -238,7 +253,7 @@ def run_grid_search():
     best_df = pd.DataFrame(best_rows)
     best_df.to_csv(ROOT / "Q3输出/tables/optimal_rule_per_filter.csv", index=False)
     print(f"\nOptimal rule per filter:")
-    print(best_df[["i","T_M","T_L_label","L_years","retired","n_M","n_L","cost_total","EAC"]].to_string(index=False))
+    print(best_df[["i","T_M","T_L_label","L_years","retired","N_M","N_L","cost_total","EAC"]].to_string(index=False))
 
 
 if __name__ == "__main__":

@@ -139,11 +139,19 @@ print(trend.to_string(index=False))
 trend.to_csv(ROOT / "tables/trend_per_filter.csv", index=False)
 
 # 季节性幅度
+# y = a sin(2π t/T) + b cos(2π t/T) = R sin(2π t/T + φ)，φ = arctan2(b, a)
+# 峰值 t_peak = T(π/2 − φ)/(2π) = T(90 − φ°)/360 = T·phase°/360
+#   其中 phase = arctan2(a, b) = 90° − φ°（与 a, b 互调位的反正切等价变换）
+# 注：t_peak 是相对 anchor 的偏移天数，**不是日历 DOY**。要换算日历日期请加上 anchor。
 sin_idx = names.index("sin1"); cos_idx = names.index("cos1")
 amp = np.sqrt(b_ols[sin_idx]**2 + b_ols[cos_idx]**2)
 phase = np.degrees(np.arctan2(b_ols[sin_idx], b_ols[cos_idx]))
-print(f"\nSeasonal amplitude = {amp:.3f},  phase = {phase:.1f}°  "
-      f"(peak ~ DOY {(90-phase)%360/360*365:.0f})")
+t_peak = phase / 360 * 365.25  # 相对 anchor 的偏移天数
+anchor_date = df["d"].min()
+peak_date = anchor_date + pd.Timedelta(days=int(round(t_peak)))
+print(f"\nSeasonal amplitude = {amp:.3f},  phase = {phase:.1f}°")
+print(f"  Peak at t = {t_peak:.1f} d (offset from anchor {anchor_date.date()})")
+print(f"  Peak calendar date ≈ {peak_date.date()} (calendar DOY ≈ {peak_date.dayofyear})")
 
 # 保存残差
 df["resid_ols"] = res_ols

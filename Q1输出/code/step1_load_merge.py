@@ -6,7 +6,7 @@ import pandas as pd
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-SRC = PROJECT_ROOT / "A题" / "附件1.xlsx"
+SRC = PROJECT_ROOT / "题目" / "附件1.xlsx"
 OUT = PROJECT_ROOT / "Q1输出" / "data"
 OUT.mkdir(parents=True, exist_ok=True)
 
