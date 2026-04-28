@@ -1,6 +1,8 @@
 """
 Q1.6 Q1 回归模型（不含 γ_q，按既定口径）
-   y_{i,d} = α_i + β_i·t + a·sin + b·cos + η_m·H_m7 + η_l·H_l7 + ρ_m·A_m + ρ_l·A_l + ε
+   y_{i,d} = α_i + β_i·t + γ_1·sin1 + γ_2·cos1
+             + δ_m·H_m7 + δ_l·H_l7 + ρ_m·A_m_f + ρ_l·A_l_f
+             + η_m·has_m + η_l·has_l + ε
   - 用 filter fixed effects (dummy)
   - 允许 β_i 按台不同（交互项 i×t）
   - A_m / A_l 在无历史维护时填 0（作为参考水平），同时加 has_m / has_l 指示变量
@@ -41,8 +43,8 @@ def build_X(df, add_filter_specific_trend=True):
         δ_l H_{i,d}^{l,7}              → H_l7                        [共 1 列]
         ρ_m \\tilde{A}_{i,d}^m          → A_m_f                       [共 1 列]
         ρ_l \\tilde{A}_{i,d}^l          → A_l_f                       [共 1 列]
-        η_m 1_i^m  (启动哑变量)         → has_m                       [共 1 列]
-        η_l 1_i^l                       → has_l                       [共 1 列]
+        η_m 1_{i,d}^m  (维护历史哑变量) → has_m                       [共 1 列]
+        η_l 1_{i,d}^l                   → has_l                       [共 1 列]
     合计 28 列。
     """
     parts = [np.ones(len(df))]
