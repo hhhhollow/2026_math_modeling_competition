@@ -35,16 +35,20 @@
 \contentsline {subsection}{\numberline {8.3}弹性分析}{22}{subsection.8.3}%
 \contentsline {subsection}{\numberline {8.4}方案稳健性}{23}{subsection.8.4}%
 \contentsline {subsection}{\numberline {8.5}联合敏感性与极端场景}{23}{subsection.8.5}%
-\contentsline {section}{\numberline {9}模型评价与改进}{24}{section.9}%
-\contentsline {subsection}{\numberline {9.1}优点}{24}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}缺点}{24}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}改进方向}{25}{subsection.9.3}%
-\contentsline {section}{参考文献}{25}{subsection.9.3}%
-\contentsline {section}{\numberline {A}支撑材料与软件环境}{26}{appendix.A}%
-\contentsline {section}{\numberline {B}源程序运行顺序}{26}{appendix.B}%
-\contentsline {section}{\numberline {C}支撑材料文件清单}{27}{appendix.C}%
-\contentsline {section}{\numberline {D}Q1 OLS 系数完整列表}{28}{appendix.D}%
-\contentsline {section}{\numberline {E}核心代码片段}{29}{appendix.E}%
-\contentsline {subsection}{\numberline {E.1}Q1 主回归}{29}{subsection.E.1}%
-\contentsline {subsection}{\numberline {E.2}Q3 网格搜索}{30}{subsection.E.2}%
-\contentsline {subsection}{\numberline {E.3}Q4 加速重计算}{30}{subsection.E.3}%
+\contentsline {section}{\numberline {9}结论与维护建议}{24}{section.9}%
+\contentsline {subsection}{\numberline {9.1}设备风险分层}{24}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}最优维护方案}{25}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}成本敏感性核心发现}{25}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}综合建议}{26}{subsection.9.4}%
+\contentsline {section}{\numberline {10}模型评价与改进}{26}{section.10}%
+\contentsline {subsection}{\numberline {10.1}优点}{26}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}缺点}{26}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}改进方向}{27}{subsection.10.3}%
+\contentsline {section}{参考文献}{27}{subsection.10.3}%
+\contentsline {section}{\numberline {A}支撑材料与软件环境}{28}{appendix.A}%
+\contentsline {section}{\numberline {B}支撑材料文件清单}{28}{appendix.B}%
+\contentsline {section}{\numberline {C}Q1 OLS 系数完整列表}{30}{appendix.C}%
+\contentsline {section}{\numberline {D}核心代码片段}{31}{appendix.D}%
+\contentsline {subsection}{\numberline {D.1}Q1 主回归}{31}{subsection.D.1}%
+\contentsline {subsection}{\numberline {D.2}Q3 网格搜索}{31}{subsection.D.2}%
+\contentsline {subsection}{\numberline {D.3}Q4 加速重计算}{31}{subsection.D.3}%

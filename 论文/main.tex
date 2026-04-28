@@ -92,48 +92,39 @@
 
 \begingroup
 \small
-\linespread{0.92}\selectfont
-\setlength{\parskip}{0pt}
-\setlength{\abovedisplayskip}{1pt}
-\setlength{\belowdisplayskip}{1pt}
-\renewcommand{\medskip}{\vspace{0.2em}}
+\linespread{1.0}\selectfont
+\setlength{\parskip}{0.4em plus 0pt minus 0pt}
+\setlength{\parindent}{0em}
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\setlength{\lineskiplimit}{-3pt}
+\setlength{\lineskip}{0pt}
 
-\noindent
+\vspace{1.5em}
 \textbf{问题背景}：以某污水处理厂 10 台并联过滤设备（A1--A10）2024 年 4 月至 2026 年 4 月共两年的小时级透水率数据为研究对象，结合 127 次维护记录，依次完成（1）数据特征指标提取，（2）当前固定维护规律下的寿命预测，（3）最小年化成本的最优维护策略求解，（4）成本参数 $\pm 30\%$ 敏感性分析。
 
-\medskip
-\noindent
 \textbf{问题一}：先按"日中位数 + 单日有效样本数 $\ge 12$"聚合得到 7390 行日表（5046 行有效），再用 IQR$\times 1.5$ 法识别异常点；结合附件 2 的 127 次维护记录，筛选出 94 次满足前后窗口各 $\ge 3$ 有效观测的有效维护事件（81 中维护、13 大维护），用于计算维护改善量 $R^{q,7}$。基于固定效应模型
 \[
 y_{i,d} = \alpha_i + \beta_i t + \gamma_1 \sin\tfrac{2\pi t}{T} + \gamma_2 \cos\tfrac{2\pi t}{T} + \delta_m H^{m,7}_{i,d} + \delta_l H^{l,7}_{i,d} + \rho_m \tilde{A}^m_{i,d} + \rho_l \tilde{A}^l_{i,d} + \eta_m \mathbf{1}_{i,d}^m + \eta_l \mathbf{1}_{i,d}^l + \varepsilon_{i,d}
 \]
 共 28 个参数（10 截距 + 10 时间斜率 + 2 季节 + 4 维护脉冲与衰减 + 2 维护历史哑变量），OLS 全样本拟合 $R^2 = 0.838$。提取 5 个核心衍生指标：日中位数 $y_{i,d}$、季节性 sin/cos 项、维护后短期改善 $R^{q,7}$（其中 $\theta = 4.33$ 为大维护改善的 10\% 分位）、自然衰减斜率 $\beta_i$、距上次维护天数 $\tilde{A}^q$。
 
-\medskip
-\noindent
 \textbf{问题二}：从附件 2 抽取每台经验维护周期 $(T_M^i, T_L^i)$，其中 A4、A8 历史 0 次大维护，按当前固定维护规律记为 $T_L^i=\infty$。在 $\gamma_q$ 共线性问题处做网格交叉验证，最小点为 $(\gamma_m,\gamma_l)=(0.25,2)$，但相对 $\gamma=0$ 仅改善约 0.36\%，故按 Occam 原则取 $\gamma_m=\gamma_l=0$。进一步比较线性 vs 指数衰减（验证 RMSE $12.96 < 13.59$）确定线性模型，并在训练+验证段重拟合最终系数。向前模拟 10 年，以"滚动 365 日均值首次跌破 37 且大维护改善不足"判定寿命，得 7 台 10 年内退役（按先后：A10: 0.93y、A8: 1.80y、A5: 1.87y、A9: 2.98y、A7: 3.48y、A3: 4.25y、A1: 4.46y），其余 3 台不退役。
 
-\medskip
-\noindent
 \textbf{问题三}：定义等值年化成本 $\mathrm{EAC} = (c_{\text{buy}} + N_M c_m + N_L c_l)/L$（其中 $N_M, N_L$ 为寿命 $L$ 内的维护总次数；$L$ 截断上限取 12 年，覆盖正常退役设备最长寿命 A2 的 11.47 年）。在网格 $T_M \in \{30,...,120\}$、$T_L \in \{120,...,720, \infty\}$ 上扫描 810 个组合，找最小 EAC。结果显示 10 台合计可节省 213.7 万元/年（14.7\%），其中 A2 节省 62.5\%、A6 节省 58.5\% 最显著；A5、A8、A10 因寿命太短，最优 EAC 仍超 170 万元/年，建议优先考虑提前更换或单独复核。
 
-\medskip
-\noindent
 \textbf{问题四}：对 $c_{\text{buy}}, c_m, c_l$ 在 $\pm 30\%$ 范围扫描，全部过滤器 EAC 弹性 $\varepsilon_{c_{\text{buy}}} = 0.8352 \gg \varepsilon_{c_m} = 0.1148 > \varepsilon_{c_l} = 0.0510$，设备购置费是核心成本驱动。最优维护规律 4 台完全稳定（A3, A4, A6, A7），A1/A2 仅在极端单参数场景下改变一次最优维护周期，其余 4 台在部分成本场景下方案会改变。三参数同向 $\pm 30\%$ 时全部过滤器 EAC 在 [867.5, 1611.1] 万元/年区间。
 
-\medskip
-\noindent
 \textbf{创新点}：(1) 用网格交叉验证识别累积维护项的共线性，避免 OLS 错误符号；(2) 用 EAC 加速重计算技巧将 Q4 计算量从 $7^3 \times 810 \approx 27.8$ 万次仿真压缩到 $7^3$ 次表查询；(3) 对 A4/A6 异常正向斜率追溯到"启动期低基线"数据特征，给出严谨警示。
 
-\medskip
-\noindent
 \textbf{关键词}：过滤设备透水率；固定效应回归；寿命预测；维护策略优化；等值年化成本（EAC）；敏感性分析
 \endgroup
+
+\vfill
 
 \restoregeometry
 \hypersetup{linkcolor=black}
 \tableofcontents
-\hypersetup{linkcolor=black}
 \newpage
 
 % =====================================================================
@@ -827,6 +818,71 @@ $c_l$            & 0.0510 & 1214.75 & 1239.29 & 1257.19 \\
 \end{figure}
 
 % =====================================================================
+\section{结论与维护建议}
+
+本文针对 10 台过滤设备的透水率监测数据，依次完成了衰减建模（Q1）、寿命预测（Q2）、维护优化（Q3）和敏感性分析（Q4）。以下从设备风险分层、最优维护方案和成本驱动因素三方面汇总核心结论。
+
+\subsection{设备风险分层}
+
+根据 Q1 回归与 Q2 寿命预测，10 台设备可分为三个风险梯队：
+
+\begin{table}[H]
+\centering
+\caption{设备风险分层与寿命预测汇总}
+\label{tab:risk_tiers}
+\small
+\begin{tabular}{clcl}
+\toprule
+风险等级 & 设备 & 预测寿命 & 关键特征 \\
+\midrule
+\textbf{高风险} & A10 & 0.93 年 & 衰减最快（$\beta_{10}=-45.4$/年），最先退役 \\
+                 & A8  & 1.80 年 & 衰减快（$\beta_8=-28.0$/年），从未做过大维护 \\
+                 & A5  & 1.87 年 & 衰减快（$\beta_5=-29.1$/年），仅 1 次大维护 \\
+\midrule
+\textbf{中风险} & A9  & 2.98 年 & \multirow{4}{*}{滚动年均值在 3--5 年内跌破退役阈值 37} \\
+                 & A7  & 3.48 年 & \\
+                 & A3  & 4.25 年 & \\
+                 & A1  & 4.46 年 & \\
+\midrule
+\textbf{低风险/待观察} & A2  & $>10$ 年 & 衰减极慢（$\beta_2=-3.5$/年），10 年内未退役 \\
+                        & A4  & $>10$ 年$^\dagger$ & $\beta_4=+19.1$/年，启动期低基线，外推不可靠 \\
+                        & A6  & $>10$ 年$^\dagger$ & $\beta_6=+28.3$/年，启动期低基线，外推不可靠 \\
+\bottomrule
+\end{tabular}
+\\[0.3em]
+\footnotesize $^\dagger$ A4/A6 的正时间斜率源于观测起点处于启动期低基线，模型对其长期外推不可信，工程上建议沿用历史经验维护规律并持续跟踪。
+\end{table}
+
+\subsection{最优维护方案}
+
+Q3 网格搜索在 12 年仿真地平线下为每台设备确定了最优中维护周期 $T_M^*$ 与大维护周期 $T_L^*$，全部过滤器合计 EAC 由当前规律的 1452.9 万元/年降至 1239.2 万元/年，\textbf{年节省 213.7 万元（14.7\%）}。核心建议如下：
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{A10}（$T_M^*=40$ 天，$T_L^*=\infty$）：寿命仅 1.02 年，即使密集中维护也无法显著延寿，应尽早规划更换；
+  \item \textbf{A8}（$T_M^*=60$ 天，$T_L^*=450$ 天）：高频中维护配合年度大维护，寿命从 1.80 年延长至 2.10 年，但仍属短寿命设备；
+  \item \textbf{A5}（$T_M^*=70$ 天，$T_L^*=720$ 天）：寿命仅 1.73 年，EAC 高达 195.1 万元/年，建议关注是否存在设备个体差异；
+  \item \textbf{A2}（$T_M^*=100$ 天，$T_L^*=540$ 天）：寿命最长（11.47 年），节省比例最大（62.5\%），主因当前大维护过于频繁（$T_L=57.5$ 天），放宽至 540 天后 EAC 大幅下降；
+  \item \textbf{A4/A6}（$T_M^*=120$ 天，$T_L^*=\infty$）：模型外推不可靠，``$T_L^*=\infty$'' 为计算结果而非工程建议，实际应沿用历史经验维护并持续监测。
+\end{itemize}
+
+\subsection{成本敏感性核心发现}
+
+Q4 弹性分析表明：
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{购置成本 $c_{\text{buy}}$ 是主导因素}：弹性 $\varepsilon_{c_{\text{buy}}}=0.835$，远高于中维护成本（$\varepsilon_{c_m}=0.115$）和大维护成本（$\varepsilon_{c_l}=0.051$）。$c_{\text{buy}}$ 变动 $\pm 30\%$ 引起全部过滤器 EAC 偏移约 $\pm 25\%$，而维护成本的同等扰动仅引起 $\pm 3.5\%$ 和 $\pm 1.5\%$。
+  \item \textbf{短寿命设备对购置成本最敏感}：A5/A8/A10 的 $\varepsilon_{c_{\text{buy}}}$ 达 0.84--0.91，因购置成本被快速摊薄；延长寿命（通过优化维护）比压低维护单价更有效地降低年化成本。
+  \item \textbf{方案整体稳健}：21 个单参数场景下，A3/A4/A6/A7 最优维护周期完全不变，A1/A2 仅在极端扰动下微调，只有 A5/A8/A9/A10 因寿命短而较敏感，建议动态调整。
+\end{enumerate}
+
+\subsection{综合建议}
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{维护调整}：A2 当前大维护过于频繁，建议将大维护周期从 57.5 天延长至 540 天左右；A1/A3/A7/A9 按 Q3 最优方案适度调整中/大维护间隔。
+  \item \textbf{持续监测}：A4/A6 因启动期数据导致模型外推不可靠，应在后续运行中积累更多稳态数据后重新评估衰减趋势与寿命。
+  \item \textbf{成本管理}：购置成本是年化成本的主导驱动力，在采购谈判中每降低 10\% 购置成本，可节省约 8.4\% 的全部过滤器年化成本。
+\end{enumerate}
+
+% =====================================================================
 \section{模型评价与改进}
 
 \subsection{优点}
@@ -890,58 +946,74 @@ Python & 3.14.4（本地虚拟环境 \texttt{.venv/bin/python}） \\
 \end{tabular}
 \end{table}
 
-\section{源程序运行顺序}
-
-若需从原始附件完整复现结果，先确保工程根目录下保留 \texttt{题目/附件1.xlsx} 与 \texttt{题目/附件2.xlsx}，再激活虚拟环境：
-\begin{lstlisting}[caption={运行环境准备}]
-source .venv/bin/activate
-\end{lstlisting}
-
-各子问题脚本按如下顺序运行。Q3 中 \texttt{step2b\_current\_rule\_20y.py} 为 20 年口径的补充核查脚本，不影响正文 12 年地平线主结果。
-
-\begin{table}[H]
-\centering
-\caption{可复现程序运行顺序}
-\small
-\begin{tabular}{p{0.12\textwidth}p{0.82\textwidth}}
-\toprule
-模块 & 运行顺序 \\
-\midrule
-Q1 & \texttt{step1\_load\_merge.py} $\to$ \texttt{step2\_daily\_agg.py} $\to$ \texttt{step3\_missing\_outlier.py} $\to$ \texttt{step4\_maintenance\_vars.py} $\to$ \texttt{step5\_stl.py} $\to$ \texttt{step6\_ols\_wls.py} $\to$ \texttt{step7\_R\_indicator.py} $\to$ \texttt{step8\_figures.py} $\to$ \texttt{diag\_A4\_A6.py} \\
-Q2 & \texttt{step1\_fixed\_rule.py} $\to$ \texttt{step2\_extended\_regression.py} $\to$ \texttt{step2b\_gamma\_grid\_cv.py} $\to$ \texttt{step3\_linear\_vs\_expo.py} $\to$ \texttt{step4\_forward\_simulate.py} $\to$ \texttt{step5\_life\_prediction.py} $\to$ \texttt{step6\_figures\_summary.py} $\to$ \texttt{step7\_robust\_TL\_check.py} \\
-Q3 & \texttt{step1\_grid\_search\_eac.py} $\to$ \texttt{step2\_compare\_current\_vs\_optimal.py} $\to$ \texttt{step3\_fair\_comparison.py} $\to$ \texttt{step4\_figures.py}；补充：\texttt{step2b\_current\_rule\_20y.py} \\
-Q4 & \texttt{step1\_single\_param\_sweep.py} $\to$ \texttt{step2\_switching\_and\_elasticity.py} $\to$ \texttt{step3\_joint\_sweep.py} $\to$ \texttt{step4\_figures.py} \\
-论文 & 进入 \texttt{论文/} 目录后执行 \texttt{xelatex main.tex} 两次，生成 \texttt{main.pdf} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \section{支撑材料文件清单}
 
-支撑材料压缩包应包含以下目录与文件。赛题原始数据 \texttt{题目/附件1.xlsx}、\texttt{题目/附件2.xlsx} 为程序输入。
+支撑材料压缩包包含以下目录与文件。
 
 \begingroup
 \footnotesize
-\sloppy
-\setlength{\emergencystretch}{8em}
-\begin{itemize}[leftmargin=2em]
-  \item \texttt{论文/}：\texttt{main.tex}, \texttt{main.pdf}, \texttt{README.md}, \texttt{figures/} 下全部论文插图。
-  \item \texttt{Q1输出/code/}：\texttt{step1\_load\_merge.py}, \texttt{step2\_daily\_agg.py}, \texttt{step3\_missing\_outlier.py}, \texttt{step4\_maintenance\_vars.py}, \texttt{step5\_stl.py}, \texttt{step6\_ols\_wls.py}, \texttt{step7\_R\_indicator.py}, \texttt{step8\_figures.py}, \texttt{diag\_A4\_A6.py}.
-  \item \texttt{Q1输出/data/}：\texttt{hourly\_long.csv}, \texttt{daily\_long.csv}, \texttt{daily\_with\_vars.csv}, \texttt{maintenance\_events.csv}, \texttt{outlier\_thresholds.csv}, \texttt{per\_filter\_hourly\_stats.csv}, \texttt{per\_filter\_daily\_summary.csv}, \texttt{regression\_residuals.csv}, \texttt{stl\_components.csv}, \texttt{stl\_summary.csv}.
-  \item \texttt{Q1输出/tables/}：\texttt{R\_events.csv}, \texttt{R\_by\_type.csv}, \texttt{R\_by\_type\_season.csv}, \texttt{R\_by\_filter\_type.csv}, \texttt{reg\_summary\_full.csv}, \texttt{trend\_per\_filter.csv}.
-  \item \texttt{Q1输出/figures/}：\texttt{fig1\_daily\_series\_outliers.png}, \texttt{fig2\_stl\_decomposition.png}, \texttt{fig3\_R\_boxplot.png}, \texttt{fig4\_trend\_per\_filter.png}, \texttt{fig5\_fit\_vs\_observed.png}, \texttt{diag\_A4\_A6\_raw.png}.
-  \item \texttt{Q2输出/code/}：\texttt{step1\_fixed\_rule.py}, \texttt{step2\_extended\_regression.py}, \texttt{step2b\_gamma\_grid\_cv.py}, \texttt{step3\_linear\_vs\_expo.py}, \texttt{step4\_forward\_simulate.py}, \texttt{step5\_life\_prediction.py}, \texttt{step6\_figures\_summary.py}, \texttt{step7\_robust\_TL\_check.py}.
-  \item \texttt{Q2输出/data/}：\texttt{Q2\_design\_with\_C.csv}, \texttt{full\_with\_rolling.csv}, \texttt{future\_events.csv}, \texttt{future\_trajectories.csv}.
-  \item \texttt{Q2输出/tables/}：\texttt{fixed\_maintenance\_rule.csv}, \texttt{Q2\_extended\_coeffs.csv}, \texttt{Q2\_regression\_compare.csv}, \texttt{gamma\_cv\_grid.csv}, \texttt{Q2\_lin\_vs\_exp\_overall.csv}, \texttt{Q2\_lin\_vs\_exp\_per\_filter.csv}, \texttt{Q2\_winner.txt}, \texttt{Q2\_winner\_coeffs.csv}, \texttt{Q2\_final\_coeffs.csv}, \texttt{Q2\_final\_summary.csv}, \texttt{life\_prediction.csv}, \texttt{A4\_A8\_robust\_TL.csv}.
-  \item \texttt{Q2输出/figures/}：\texttt{fig\_q2\_life\_bar.png}, \texttt{fig\_q2\_rolling\_avg.png}, \texttt{fig\_q2\_trajectories.png}.
-  \item \texttt{Q3输出/code/}：\texttt{step1\_grid\_search\_eac.py}, \texttt{step2\_compare\_current\_vs\_optimal.py}, \texttt{step2b\_current\_rule\_20y.py}, \texttt{step3\_fair\_comparison.py}, \texttt{step4\_figures.py}.
-  \item \texttt{Q3输出/tables/}：\texttt{eac\_grid\_all.csv}, \texttt{optimal\_rule\_per\_filter.csv}, \texttt{comparison\_current\_vs\_optimal.csv}, \texttt{current\_rule\_20y.csv}, \texttt{comparison\_fair.csv}.
-  \item \texttt{Q3输出/figures/}：\texttt{fig\_q3\_optimal\_periods.png}, \texttt{fig\_q3\_eac\_comparison.png}, \texttt{fig\_q3\_eac\_heatmap.png}.
-  \item \texttt{Q4输出/code/}：\texttt{step1\_single\_param\_sweep.py}, \texttt{step2\_switching\_and\_elasticity.py}, \texttt{step3\_joint\_sweep.py}, \texttt{step4\_figures.py}.
-  \item \texttt{Q4输出/tables/}：\texttt{sensitivity\_single\_param.csv}, \texttt{sensitivity\_total\_fleet.csv}, \texttt{per\_filter\_elasticity.csv}, \texttt{optimal\_rule\_switching.csv}, \texttt{joint\_buy\_l.csv}, \texttt{joint\_buy\_m.csv}.
-  \item \texttt{Q4输出/figures/}：\texttt{fig\_q4\_tornado.png}, \texttt{fig\_q4\_elasticity.png}, \texttt{fig\_q4\_joint\_heatmap.png}, \texttt{fig\_q4\_eac\_vs\_cbuy.png}.
-  \item \texttt{Q1输出/Q1\_summary.md}, \texttt{Q2输出/Q2\_summary.md}, \texttt{Q3输出/Q3\_summary.md}, \texttt{Q4输出/Q4\_summary.md}：各问中间结果说明。
-\end{itemize}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{p{0.18\textwidth}p{0.12\textwidth}p{0.62\textwidth}}
+\caption{支撑材料文件清单}\\
+\toprule
+模块 & 子目录 & 文件 \\
+\midrule
+\endfirsthead
+\caption[]{支撑材料文件清单（续）}\\
+\toprule
+模块 & 子目录 & 文件 \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{续下页} \\
+\endfoot
+\bottomrule
+\endlastfoot
+
+\texttt{论文/} & --- &
+  \texttt{main.tex}, \texttt{main.pdf}, \texttt{README.md}, \texttt{figures/} 下全部论文插图 \\
+\midrule
+
+\multirow{4}{*}{\texttt{Q1输出/}}
+  & \texttt{code/} &
+    \texttt{step1\_load\_merge.py}, \texttt{step2\_daily\_agg.py}, \texttt{step3\_missing\_outlier.py}, \texttt{step4\_maintenance\_vars.py}, \texttt{step5\_stl.py}, \texttt{step6\_ols\_wls.py}, \texttt{step7\_R\_indicator.py}, \texttt{step8\_figures.py}, \texttt{diag\_A4\_A6.py} \\
+  & \texttt{data/} &
+    \texttt{hourly\_long.csv}, \texttt{daily\_long.csv}, \texttt{daily\_with\_vars.csv}, \texttt{maintenance\_events.csv}, \texttt{outlier\_thresholds.csv}, \texttt{per\_filter\_hourly\_stats.csv}, \texttt{per\_filter\_daily\_summary.csv}, \texttt{regression\_residuals.csv}, \texttt{stl\_components.csv}, \texttt{stl\_summary.csv} \\
+  & \texttt{tables/} &
+    \texttt{R\_events.csv}, \texttt{R\_by\_type.csv}, \texttt{R\_by\_type\_season.csv}, \texttt{R\_by\_filter\_type.csv}, \texttt{reg\_summary\_full.csv}, \texttt{trend\_per\_filter.csv} \\
+  & \texttt{figures/} &
+    \texttt{fig1\_daily\_series\_outliers.png}, \texttt{fig2\_stl\_decomposition.png}, \texttt{fig3\_R\_boxplot.png}, \texttt{fig4\_trend\_per\_filter.png}, \texttt{fig5\_fit\_vs\_observed.png}, \texttt{diag\_A4\_A6\_raw.png} \\
+\midrule
+
+\multirow{4}{*}{\texttt{Q2输出/}}
+  & \texttt{code/} &
+    \texttt{step1\_fixed\_rule.py}, \texttt{step2\_extended\_regression.py}, \texttt{step2b\_gamma\_grid\_cv.py}, \texttt{step3\_linear\_vs\_expo.py}, \texttt{step4\_forward\_simulate.py}, \texttt{step5\_life\_prediction.py}, \texttt{step6\_figures\_summary.py}, \texttt{step7\_robust\_TL\_check.py} \\
+  & \texttt{data/} &
+    \texttt{Q2\_design\_with\_C.csv}, \texttt{full\_with\_rolling.csv}, \texttt{future\_events.csv}, \texttt{future\_trajectories.csv} \\
+  & \texttt{tables/} &
+    \texttt{fixed\_maintenance\_rule.csv}, \texttt{Q2\_extended\_coeffs.csv}, \texttt{Q2\_regression\_compare.csv}, \texttt{gamma\_cv\_grid.csv}, \texttt{Q2\_lin\_vs\_exp\_overall.csv}, \texttt{Q2\_lin\_vs\_exp\_per\_filter.csv}, \texttt{Q2\_winner.txt}, \texttt{Q2\_winner\_coeffs.csv}, \texttt{Q2\_final\_coeffs.csv}, \texttt{Q2\_final\_summary.csv}, \texttt{life\_prediction.csv}, \texttt{A4\_A8\_robust\_TL.csv} \\
+  & \texttt{figures/} &
+    \texttt{fig\_q2\_life\_bar.png}, \texttt{fig\_q2\_rolling\_avg.png}, \texttt{fig\_q2\_trajectories.png} \\
+\midrule
+
+\multirow{3}{*}{\texttt{Q3输出/}}
+  & \texttt{code/} &
+    \texttt{step1\_grid\_search\_eac.py}, \texttt{step2\_compare\_current\_vs\_optimal.py}, \texttt{step2b\_current\_rule\_20y.py}, \texttt{step3\_fair\_comparison.py}, \texttt{step4\_figures.py} \\
+  & \texttt{tables/} &
+    \texttt{eac\_grid\_all.csv}, \texttt{optimal\_rule\_per\_filter.csv}, \texttt{comparison\_current\_vs\_optimal.csv}, \texttt{current\_rule\_20y.csv}, \texttt{comparison\_fair.csv} \\
+  & \texttt{figures/} &
+    \texttt{fig\_q3\_optimal\_periods.png}, \texttt{fig\_q3\_eac\_comparison.png}, \texttt{fig\_q3\_eac\_heatmap.png} \\
+\midrule
+
+\multirow{3}{*}{\texttt{Q4输出/}}
+  & \texttt{code/} &
+    \texttt{step1\_single\_param\_sweep.py}, \texttt{step2\_switching\_and\_elasticity.py}, \texttt{step3\_joint\_sweep.py}, \texttt{step4\_figures.py} \\
+  & \texttt{tables/} &
+    \texttt{sensitivity\_single\_param.csv}, \texttt{sensitivity\_total\_fleet.csv}, \texttt{per\_filter\_elasticity.csv}, \texttt{optimal\_rule\_switching.csv}, \texttt{joint\_buy\_l.csv}, \texttt{joint\_buy\_m.csv} \\
+  & \texttt{figures/} &
+    \texttt{fig\_q4\_tornado.png}, \texttt{fig\_q4\_elasticity.png}, \texttt{fig\_q4\_joint\_heatmap.png}, \texttt{fig\_q4\_eac\_vs\_cbuy.png} \\
+
+\end{longtable}
 \endgroup
 
 \section{Q1 OLS 系数完整列表}

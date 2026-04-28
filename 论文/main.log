@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.21)  28 APR 2026 20:56
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.21)  28 APR 2026 21:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1428,13 +1428,13 @@ Package fontspec Info:
 (fontspec)             - 'bold' (b/n) with NFSS spec.:
 (fontspec)             <->"[FandolHei-Bold.otf]/OT:script=hani;language=dflt;"
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 102
+LaTeX Font Info:    Trying to load font information for U+msa on input line 104
 .
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 102
+LaTeX Font Info:    Trying to load font information for U+msb on input line 104
 .
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1506,238 +1506,197 @@ File: figures/fig_q4_elasticity.png Graphic file (type bmp)
  [22] [23]
 File: figures/fig_q4_joint_heatmap.png Graphic file (type bmp)
 <figures/fig_q4_joint_heatmap.png>
- [24] [25]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 896.
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 897.
-
-Underfull \hbox (badness 10000) in paragraph at lines 910--911
-[]|\TU/lmtt/m/n/10.95 step1_load_merge.py $\OMS/cmsy/m/n/10.95 !$ \TU/lmtt/m/n/
-10.95 step2_daily_agg.py $\OMS/cmsy/m/n/10.95 !$
+ [24] [25] [26] [27]
+Underfull \hbox (badness 10000) in paragraph at lines 979--980
+[]|\TU/lmtt/m/n/10 step1_load_merge.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step2_da
+ily_agg.py\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 910--911
-\TU/lmtt/m/n/10.95 step3_missing_outlier.py $\OMS/cmsy/m/n/10.95 !$ \TU/lmtt/m/
-n/10.95 step4_maintenance_vars.py $\OMS/cmsy/m/n/10.95 !$
+Underfull \hbox (badness 10000) in paragraph at lines 979--980
+\TU/lmtt/m/n/10 step3_missing_outlier.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step4_
+maintenance_vars.py\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 910--911
-\TU/lmtt/m/n/10.95 step5_stl.py $\OMS/cmsy/m/n/10.95 !$ \TU/lmtt/m/n/10.95 step
-6_ols_wls.py $\OMS/cmsy/m/n/10.95 !$ \TU/lmtt/m/n/10.95 step7_R_indicator.py $\
-OMS/cmsy/m/n/10.95 !$
+Underfull \hbox (badness 4913) in paragraph at lines 979--980
+\TU/lmtt/m/n/10 step5_stl.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step6_ols_wls.py\T
+U/lmr/m/n/10 , \TU/lmtt/m/n/10 step7_R_indicator.py\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 911--912
-[]|\TU/lmtt/m/n/10.95 step1_fixed_rule.py $\OMS/cmsy/m/n/10.95 !$ \TU/lmtt/m/n/
-10.95 step2_extended_regression.py $\OMS/cmsy/m/n/10.95 !$
+Underfull \hbox (badness 10000) in paragraph at lines 981--982
+[]|\TU/lmtt/m/n/10 hourly_long.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 daily_long.c
+sv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 911--912
-\TU/lmtt/m/n/10.95 step2b_gamma_grid_cv.py $\OMS/cmsy/m/n/10.95 !$ \TU/lmtt/m/n
-/10.95 step3_linear_vs_expo.py $\OMS/cmsy/m/n/10.95 !$
+Underfull \hbox (badness 10000) in paragraph at lines 981--982
+\TU/lmtt/m/n/10 daily_with_vars.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 maintenance
+_events.csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 911--912
-\TU/lmtt/m/n/10.95 step4_forward_simulate.py $\OMS/cmsy/m/n/10.95 !$ \TU/lmtt/m
-/n/10.95 step5_life_prediction.py $\OMS/cmsy/m/n/10.95 !$
+Underfull \hbox (badness 10000) in paragraph at lines 981--982
+\TU/lmtt/m/n/10 outlier_thresholds.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 per_filt
+er_hourly_stats.csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 912--913
-[]|\TU/lmtt/m/n/10.95 step1_grid_search_eac.py $\OMS/cmsy/m/n/10.95 !$ \TU/lmtt
-/m/n/10.95 step2_compare_current_vs_optimal.py
+Underfull \hbox (badness 10000) in paragraph at lines 983--984
+[]|\TU/lmtt/m/n/10 R_events.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 R_by_type.csv\T
+U/lmr/m/n/10 , \TU/lmtt/m/n/10 R_by_type_season.csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 912--913
-\OMS/cmsy/m/n/10.95 !$ \TU/lmtt/m/n/10.95 step3_fair_comparison.py $\OMS/cmsy/m
-/n/10.95 !$ \TU/lmtt/m/n/10.95 step4_figures.py\TU/FandolSong-Regular(0)/m/n/10
-.95 ；|  补 充：|
+Underfull \hbox (badness 10000) in paragraph at lines 983--984
+\TU/lmtt/m/n/10 R_by_filter_type.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 reg_summar
+y_full.csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 2142) in paragraph at lines 913--914
-[]|\TU/lmtt/m/n/10.95 step1_single_param_sweep.py $\OMS/cmsy/m/n/10.95 !$ \TU/l
-mtt/m/n/10.95 step2_switching_and_elasticity.py
- []
-
-[26]
-Underfull \hbox (badness 10000) in paragraph at lines 929--930
-[]\TU/lmtt/m/n/10 Q1 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /code/
-\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 step1_load_merge.py\TU/lmr/
-m/n/10 , \TU/lmtt/m/n/10 step2_daily_agg.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 ste
-p3_missing_outlier.py\TU/lmr/m/n/10 ,
+Underfull \hbox (badness 10000) in paragraph at lines 985--986
+[]|\TU/lmtt/m/n/10 fig1_daily_series_outliers.png\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 929--930
-\TU/lmtt/m/n/10 step4_maintenance_vars.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step5
-_stl.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step6_ols_wls.py\TU/lmr/m/n/10 , \TU/lm
-tt/m/n/10 step7_R_indicator.py\TU/lmr/m/n/10 ,
+Underfull \hbox (badness 10000) in paragraph at lines 985--986
+\TU/lmtt/m/n/10 fig2_stl_decomposition.png\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 fig3
+_R_boxplot.png\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 930--931
-[]\TU/lmtt/m/n/10 Q1 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /data/
-\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 hourly_long.csv\TU/lmr/m/n/
-10 , \TU/lmtt/m/n/10 daily_long.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 daily_with_
-vars.csv\TU/lmr/m/n/10 ,
+Underfull \hbox (badness 10000) in paragraph at lines 985--986
+\TU/lmtt/m/n/10 fig4_trend_per_filter.png\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 fig5_
+fit_vs_observed.png\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 930--931
-\TU/lmtt/m/n/10 maintenance_events.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 outlier_
-thresholds.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 per_filter_hourly_stats.csv\TU/l
-mr/m/n/10 ,
+Underfull \hbox (badness 10000) in paragraph at lines 990--991
+[]|\TU/lmtt/m/n/10 step1_fixed_rule.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step2_ex
+tended_regression.py\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 930--931
-\TU/lmtt/m/n/10 per_filter_daily_summary.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 re
-gression_residuals.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 stl_components.csv\TU/lm
-r/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 931--932
-[]\TU/lmtt/m/n/10 Q1 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /table
-s/\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 R_events.csv\TU/lmr/m/n/1
-0 , \TU/lmtt/m/n/10 R_by_type.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 R_by_type_sea
-son.csv\TU/lmr/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 932--933
-[]\TU/lmtt/m/n/10 Q1 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /figur
-es/\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 fig1_daily_series_outlie
-rs.png\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 fig2_stl_decomposition.png\TU/lmr/m/n/10
- ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 932--933
-\TU/lmtt/m/n/10 fig3_R_boxplot.png\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 fig4_trend_p
-er_filter.png\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 fig5_fit_vs_observed.png\TU/lmr/m
-/n/10 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 933--934
-[]\TU/lmtt/m/n/10 Q2 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /code/
-\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 step1_fixed_rule.py\TU/lmr/
-m/n/10 , \TU/lmtt/m/n/10 step2_extended_regression.py\TU/lmr/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 933--934
+Underfull \hbox (badness 10000) in paragraph at lines 990--991
 \TU/lmtt/m/n/10 step2b_gamma_grid_cv.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step3_l
-inear_vs_expo.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step4_forward_simulate.py\TU/l
-mr/m/n/10 ,
+inear_vs_expo.py\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 934--935
-[]\TU/lmtt/m/n/10 Q2 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /data/
-\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 Q2_design_with_C.csv\TU/lmr
-/m/n/10 , \TU/lmtt/m/n/10 full_with_rolling.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10
- future_events.csv\TU/lmr/m/n/10 ,
- []
-
-[27]
-Underfull \hbox (badness 10000) in paragraph at lines 935--936
-[]\TU/lmtt/m/n/10 Q2 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /table
-s/\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 fixed_maintenance_rule.cs
-v\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q2_extended_coeffs.csv\TU/lmr/m/n/10 ,
+Underfull \hbox (badness 10000) in paragraph at lines 990--991
+\TU/lmtt/m/n/10 step4_forward_simulate.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step5
+_life_prediction.py\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 935--936
+Underfull \hbox (badness 10000) in paragraph at lines 992--993
+[]|\TU/lmtt/m/n/10 Q2_design_with_C.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 full_wi
+th_rolling.csv\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 994--995
+[]|\TU/lmtt/m/n/10 fixed_maintenance_rule.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q
+2_extended_coeffs.csv\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 994--995
 \TU/lmtt/m/n/10 Q2_regression_compare.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 gamma
-_cv_grid.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q2_lin_vs_exp_overall.csv\TU/lmr/m
-/n/10 ,
+_cv_grid.csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 935--936
-\TU/lmtt/m/n/10 Q2_lin_vs_exp_per_filter.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q2
-_winner.txt\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q2_winner_coeffs.csv\TU/lmr/m/n/10 
-,
+Overfull \hbox (4.00288pt too wide) in paragraph at lines 994--995
+\TU/lmtt/m/n/10 Q2_lin_vs_exp_overall.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q2_li
+n_vs_exp_per_filter.csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 936--937
-[]\TU/lmtt/m/n/10 Q2 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /figur
-es/\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 fig_q2_life_bar.png\TU/l
-mr/m/n/10 , \TU/lmtt/m/n/10 fig_q2_rolling_avg.png\TU/lmr/m/n/10 ,
+Underfull \hbox (badness 10000) in paragraph at lines 994--995
+\TU/lmtt/m/n/10 Q2_winner.txt\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q2_winner_coeffs.
+csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 937--938
-[]\TU/lmtt/m/n/10 Q3 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /code/
-\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 step1_grid_search_eac.py\TU
-/lmr/m/n/10 , \TU/lmtt/m/n/10 step2_compare_current_vs_optimal.py\TU/lmr/m/n/10
- ,
+Underfull \hbox (badness 10000) in paragraph at lines 994--995
+\TU/lmtt/m/n/10 Q2_final_coeffs.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q2_final_su
+mmary.csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 938--939
-[]\TU/lmtt/m/n/10 Q3 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /table
-s/\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 eac_grid_all.csv\TU/lmr/m
-/n/10 , \TU/lmtt/m/n/10 optimal_rule_per_filter.csv\TU/lmr/m/n/10 ,
+Underfull \hbox (badness 10000) in paragraph at lines 996--997
+[]|\TU/lmtt/m/n/10 fig_q2_life_bar.png\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 fig_q2_r
+olling_avg.png\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 939--940
-[]\TU/lmtt/m/n/10 Q3 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /figur
-es/\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 fig_q3_optimal_periods.p
-ng\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 fig_q3_eac_comparison.png\TU/lmr/m/n/10 ,
+Overfull \hbox (35.50288pt too wide) in paragraph at lines 1001--1002
+[]|\TU/lmtt/m/n/10 step1_grid_search_eac.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 ste
+p2_compare_current_vs_optimal.py\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 940--941
-[]\TU/lmtt/m/n/10 Q4 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /code/
-\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 step1_single_param_sweep.py
-\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step2_switching_and_elasticity.py\TU/lmr/m/n/1
-0 ,
+Underfull \hbox (badness 10000) in paragraph at lines 1001--1002
+\TU/lmtt/m/n/10 step2b_current_rule_20y.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 step
+3_fair_comparison.py\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 941--942
-[]\TU/lmtt/m/n/10 Q4 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /table
-s/\TU/FandolSong-Regular(0)/m/n/10 ：| \TU/lmtt/m/n/10 sensitivity_single_param.
-csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 sensitivity_total_fleet.csv\TU/lmr/m/n/10 ,
-
+Underfull \hbox (badness 10000) in paragraph at lines 1003--1004
+[]|\TU/lmtt/m/n/10 eac_grid_all.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 optimal_rul
+e_per_filter.csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 941--942
+Underfull \hbox (badness 10000) in paragraph at lines 1003--1004
+\TU/lmtt/m/n/10 comparison_current_vs_optimal.csv\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 1953) in paragraph at lines 1005--1006
+[]|\TU/lmtt/m/n/10 fig_q3_optimal_periods.png\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 f
+ig_q3_eac_comparison.png\TU/lmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (40.75288pt too wide) in paragraph at lines 1010--1011
+[]|\TU/lmtt/m/n/10 step1_single_param_sweep.py\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 
+step2_switching_and_elasticity.py\TU/lmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (14.50288pt too wide) in paragraph at lines 1012--1013
+[]|\TU/lmtt/m/n/10 sensitivity_single_param.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10
+ sensitivity_total_fleet.csv\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 1953) in paragraph at lines 1012--1013
 \TU/lmtt/m/n/10 per_filter_elasticity.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 optim
-al_rule_switching.csv\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 joint_buy_l.csv\TU/lmr/m/
-n/10 ,
+al_rule_switching.csv\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 943--944
-[]\TU/lmtt/m/n/10 Q1 \TU/FandolFang-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /Q1_su
-mmary.md\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q2 \TU/FandolFang-Regular(0)/m/n/10 输 
-出\TU/lmtt/m/n/10 /Q2_summary.md\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 Q3 \TU/FandolFa
-ng-Regular(0)/m/n/10 输 出\TU/lmtt/m/n/10 /Q3_summary.md\TU/lmr/m/n/10 , \TU/lmtt
-/m/n/10 Q4 \TU/FandolFang-Regular(0)/m/n/10 输
+Underfull \hbox (badness 10000) in paragraph at lines 1014--1015
+[]|\TU/lmtt/m/n/10 fig_q4_tornado.png\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 fig_q4_el
+asticity.png\TU/lmr/m/n/10 ,
  []
 
-[28] [29]
+
+ignored: Infinite glue shrinkage found in box being split [28] [29] [30]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 1069.
+
 
 LaTeX Font Warning: Font shape `TU/FandolFang-Regular(0)/m/it' undefined
 (Font)              using `TU/FandolFang-Regular(0)/m/n' instead on input line 
-998.
+1070.
 
-[30] (./main.aux)
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1075.
+[31] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
@@ -1747,15 +1706,15 @@ L3 programming layer <2022/08/05>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 77F890703A74DD7A99EC4FFED90CB7DB;5683.
+(rerunfilecheck)             Checksum: B18A7C83681E43BAB8835E66514462B6;6122.
  ) 
 Here is how much of TeX's memory you used:
- 31884 strings out of 468168
- 696630 string characters out of 5432815
- 1472339 words of memory out of 5000000
- 60039 multiletter control sequences out of 15000+600000
- 644513 words of font info for 153 fonts, out of 8000000 for 9000
+ 31877 strings out of 468168
+ 695879 string characters out of 5432815
+ 1473339 words of memory out of 5000000
+ 60028 multiletter control sequences out of 15000+600000
+ 644529 words of font info for 155 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 93i,14n,112p,1186b,1221s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,14n,112p,1186b,1272s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (30 pages).
+Output written on main.xdv (31 pages, 439160 bytes).
